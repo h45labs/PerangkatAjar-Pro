@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e7c66">
+<meta name="description" content="Perangkat Ajar Kurikulum Berbasis Cinta (KBC) Pro — Universal SD/MI, SMP/MTs, SMA/MA, SMK/MAK. Offline, gratis, responsif. Dikembangkan oleh HijraH45.">
+<title>🌿 README — Perangkat Ajar KBC Pro | HijraH45</title>
+<style>
+:root{--bg:#f0f5f4;--card:#fff;--txt:#22313f;--mut:#5a6b77;--pri:#0e7c66;--prid:#0b6152;--acc:#38ef7d;--line:#d6e3df;--soft:#eef7f5;--headbg:#e8f5f1;--headc:#0b5d4e;--shadow:0 2px 8px rgba(0,0,0,.08)}
+[data-theme=dark]{--bg:#0f1719;--card:#182326;--txt:#e2eeea;--mut:#93aca5;--pri:#2bbd9a;--prid:#0b5d4e;--acc:#3ce08a;--line:#274041;--soft:#1c2b2d;--headbg:#1c2f31;--headc:#7fe0c8;--shadow:0 2px 10px rgba(0,0,0,.5)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+body{background:var(--bg);color:var(--txt);line-height:1.65}
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:10px;background:linear-gradient(120deg,#0e7c66,#11998e);color:#fff;padding:0 14px;height:58px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.topbar .t1{font-weight:700;font-size:15px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .t1 small{display:block;font-weight:400;font-size:10.5px;opacity:.92}
+.tbtn,.tlink{background:rgba(255,255,255,.16);border:0;color:#fff;font-size:17px;width:42px;height:42px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;flex:0 0 auto}
+.tbtn:active,.tlink:active{background:rgba(255,255,255,.35)}
+/* NAV SEC */
+.navsec{display:flex;flex-wrap:wrap;gap:5px;background:var(--prid);padding:8px 14px;justify-content:center}
+.navsec a{color:#fff;text-decoration:none;font-size:12.5px;background:rgba(255,255,255,.14);padding:7px 12px;border-radius:16px}
+.navsec a:hover{background:var(--card);color:var(--prid)}
+main{max-width:960px;margin:0 auto;padding:16px 14px}
+section{scroll-margin-top:120px}
+/* HERO */
+.hero{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:28px 18px;text-align:center;margin-bottom:14px}
+.hero .logo{font-size:52px;line-height:1}
+.hero h1{font-size:26px;color:var(--pri);margin:8px 0 2px}
+.hero h3{font-size:14px;font-weight:500;color:var(--mut);font-style:italic;margin-bottom:10px}
+.hero .jenjang{font-weight:700;font-size:13.5px;color:var(--txt)}
+.hero .sub{font-size:12.5px;color:var(--mut)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0}
+.badges img{height:20px;border-radius:3px}
+.quote{background:linear-gradient(120deg,#eafff5,#e3fbef);border:2px dashed var(--pri);border-radius:12px;padding:14px;font-style:italic;color:var(--headc);margin-top:14px;font-size:13.5px}
+[data-theme=dark] .quote{background:#14282a}
+.btnutama{display:inline-block;background:#0e7c66;color:#fff;text-decoration:none;font-weight:700;font-size:14.5px;padding:12px 26px;border-radius:24px;margin-top:12px}
+.btnutama:hover{background:#0b6152}
+/* CARD */
+.card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
+.card h2{font-size:17px;color:var(--pri);margin-bottom:12px;border-left:4px solid var(--acc);padding-left:10px}
+.card p{font-size:13.5px;margin-bottom:8px}
+.hint{font-size:12.5px;color:var(--mut);background:var(--soft);border-left:3px solid var(--acc);padding:9px 11px;border-radius:6px;margin:9px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--headbg);color:var(--headc)}
+/* FITUR GRID */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.fitem{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12.5px}
+.fitem b{display:block;font-size:13.5px;color:var(--pri);margin-bottom:3px}
+/* LANGKAH */
+.steps{counter-reset:s;list-style:none;margin-top:8px}
+.steps li{counter-increment:s;position:relative;padding:10px 0 10px 44px;font-size:13.5px;border-bottom:1px dashed var(--line)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:30px;height:30px;background:var(--pri);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.flow{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:14px;font-family:Consolas,monospace;font-size:12px;white-space:pre;overflow-x:auto;margin-top:8px;color:var(--headc)}
+/* FONDASI */
+.fondasi{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+.fondasi div{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 6px;text-align:center;font-size:11.5px;font-weight:600;color:var(--headc)}
+.fondasi span{display:block;font-size:22px;margin-bottom:4px}
+/* DEV */
+.devbox{background:linear-gradient(120deg,#0e7c66,#11998e);border-radius:14px;color:#fff;padding:22px;text-align:center;margin:14px 0}
+.devbox h2{border:0;color:#fff;margin-bottom:4px;font-size:18px}
+.devbox a{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.6)}
+.devbox .btngh{display:inline-block;background:#fff;color:#0b6152;font-weight:700;padding:10px 22px;border-radius:22px;text-decoration:none;margin-top:12px;font-size:13.5px}
+footer{text-align:center;font-size:12.5px;color:var(--mut);padding:18px 12px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line);margin-top:10px}
+footer a{color:var(--pri);font-weight:600;text-decoration:none}
+@media(max-width:720px){
+ .hero h1{font-size:21px}
+ .fgrid{grid-template-columns:1fr 1fr}
+ .fondasi{grid-template-columns:repeat(2,1fr)}
+ .navsec{display:none}
+ main{padding:12px 10px}
+}
+@media print{.topbar,.navsec,.btnutama,.devbox .btngh{display:none!important}body{background:#fff}.card,.hero{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+ <div class="t1">🌿 README — Perangkat Ajar KBC Pro<small>Kurikulum Berbasis Cinta • Semua Jenjang • Offline</small></div>
+ <a class="tlink" href="https://github.com/h45labs" target="_blank" rel="noopener" title="GitHub h45labs">🐙</a>
+ <button class="tbtn" id="themeBtn" title="Mode gelap/terang">🌙</button>
+</header>
+
+<nav class="navsec">
+ <a href="#tentang">Tentang</a>
+ <a href="#fitur">Fitur</a>
+ <a href="#unggulan">Unggulan</a>
+ <a href="#cara">Cara Pakai</a>
+ <a href="#alur">Alur Kerja</a>
+ <a href="#filosofi">Filosofi</a>
+ <a href="#fondasi">Fondasi</a>
+ <a href="#teknologi">Teknologi</a>
+ <a href="#kontribusi">Kontribusi</a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+ <div class="logo">🌿</div>
+ <h1>Perangkat Ajar KBC Pro</h1>
+ <h3>Kurikulum Berbasis Cinta (KBC) — Aplikasi Perangkat Ajar Universal</h3>
+ <div class="jenjang">SD/MI • SMP/MTs • SMA/MA • SMK/MAK</div>
+ <div class="sub">Sekolah Umum &amp; Madrasah • Fase A – F • 100% Offline • Gratis</div>
+ <div class="badges">
+  <img src="https://img.shields.io/badge/versi-3.0%20Pro%20Mobile-0e7c66?style=flat-square" alt="Versi 3.0">
+  <img src="https://img.shields.io/badge/HTML5-CSS3-JS-f4a340?style=flat-square" alt="HTML CSS JS">
+  <img src="https://img.shields.io/badge/offline-100%25-2f6fa3?style=flat-square" alt="Offline">
+  <img src="https://img.shields.io/badge/HP%20%2B%20Desktop-Responsif-d64545?style=flat-square" alt="Responsif">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT">
+ </div>
+ <a class="btnutama" href="https://h45labs.github.io/kbc/">🚀 Buka Aplikasi</a>
+ <div class="quote">💚 "Siswa yang merasa aman dan dicintai akan berani bertanya, tahan gagal, dan mencintai ilmu."</div>
+</section>
+
+<!-- TENTANG -->
+<section class="card" id="tentang">
+ <h2>👋 Tentang Aplikasi</h2>
+ <p><b>Perangkat Ajar KBC Pro</b> adalah aplikasi web <b>satu file HTML</b> yang membantu guru menyusun seluruh perangkat ajar berbasis <b>Kurikulum Berbasis Cinta (KBC)</b> — pendekatan yang menempatkan <b>kasih sayang</b> sebagai jantung pembelajaran.</p>
+ <p>Dibuat untuk <b>semua guru di semua jenjang</b>: SD/MI, SMP/MTs, SMA/MA, hingga SMK/MAK — baik sekolah umum maupun madrasah. Berjalan <b>tanpa internet, tanpa install, tanpa biaya</b>. Cukup buka di browser HP atau laptop. 📱💻</p>
+ <div class="hint">📤 Berbagi ke sesama guru: bagikan tautan aplikasi, kirim file HTML via WhatsApp, atau gunakan <b>Export/Import JSON</b> di menu Data.</div>
+</section>
+
+<!-- FITUR -->
+<section class="card" id="fitur">
+ <h2>✨ Fitur Lengkap (16 Menu)</h2>
+ <div class="fgrid">
+  <div class="fitem"><b>📘 Modul Ajar</b>Generator otomatis dengan afirmasi, cek perasaan, refleksi syukur, remedial kasih sayang.</div>
+  <div class="fitem"><b>📑 KTP &amp; ATP</b>Kumpulan &amp; Alur Tujuan Pembelajaran — generate otomatis dari daftar TP.</div>
+  <div class="fitem"><b>🎯 KKTP</b>Kriteria Ketercapaian TP 4 level: Baru Berkembang → Mahir.</div>
+  <div class="fitem"><b>📅 Prota &amp; Promes</b>Program Tahunan &amp; Semester otomatis dari TP, baris dapat diedit.</div>
+  <div class="fitem"><b>📝 Bank Soal</b>PG / Isian / Uraian → kisi-kisi, lembar soal, kunci jawaban siap cetak.</div>
+  <div class="fitem"><b>🧠 Kuis Siswa</b>Kuis interaktif — jawaban salah disambut pesan penyemangat, bukan hukuman.</div>
+  <div class="fitem"><b>📋 LKPD Builder</b>Lembar Kerja Peserta Didik dengan bahasa positif otomatis.</div>
+  <div class="fitem"><b>📊 Analisis Nilai</b>Status "Perlu Pendampingan 🌱" — bukan "gagal".</div>
+  <div class="fitem"><b>💬 Afirmasi &amp; Apresiasi</b>Afirmasi harian, Kartu Apresiasi, "2 Bintang 1 Harapan".</div>
+  <div class="fitem"><b>🌱 Refleksi &amp; Perasaan</b>Refleksi siswa, refleksi guru, cek perasaan harian (siap cetak).</div>
+  <div class="fitem"><b>📓 Jurnal Mengajar</b>Jurnal harian dengan kolom "siswa yang perlu perhatian 💚".</div>
+  <div class="fitem"><b>💾 Data</b>Simpan otomatis di browser + Export/Import JSON antar perangkat.</div>
+ </div>
+</section>
+
+<!-- UNGGULAN -->
+<section class="card" id="unggulan">
+ <h2>🌟 Fitur Unggulan</h2>
+ <table>
+  <tr><th style="width:34%">Fitur</th><th>Keterangan</th></tr>
+  <tr><td>📱 Pro Mobile</td><td>Menu hamburger ☰, tombol ramah jempol, tabel geser samping</td></tr>
+  <tr><td>💻 Responsif Penuh</td><td>Nyaman di HP, tablet, dan desktop</td></tr>
+  <tr><td>🌙 Mode Gelap/Terang</td><td>Satu ketukan, tersimpan otomatis</td></tr>
+  <tr><td>🏫 Universal</td><td>Jenjang &amp; fase terdeteksi otomatis (A–F), dukung mapel kejuruan (ketik sendiri)</td></tr>
+  <tr><td>⏱️ JP Otomatis</td><td>1 JP = 35 menit (SD) / 40 menit (SMP ke atas)</td></tr>
+  <tr><td>🖨️ Cetak / PDF</td><td>Semua dokumen siap cetak dengan kop sekolah</td></tr>
+  <tr><td>🔌 100% Offline</td><td>Satu file HTML, tanpa server, tanpa database</td></tr>
+ </table>
+</section>
+
+<!-- CARA PAKAI -->
+<section class="card" id="cara">
+ <h2>🚀 Cara Menggunakan</h2>
+ <p><b>A. Langsung Online (Rekomendasi)</b></p>
+ <ol class="steps">
+  <li>Buka <b>https://h45labs.github.io/kbc/</b> di browser</li>
+  <li>Aplikasi langsung jalan — bisa dibookmark</li>
+  <li>Di HP: menu ⋮ → <b>"Tambahkan ke layar utama"</b> agar seperti aplikasi</li>
+ </ol>
+ <p style="margin-top:12px"><b>B. Offline di HP / Laptop</b></p>
+ <ol class="steps">
+  <li>Unduh file <b>index.html</b> dari repo ini (atau terima via WhatsApp)</li>
+  <li>Buka dengan <b>Chrome / Firefox</b> — klik dua kali di laptop</li>
+  <li>Selesai — semua fitur berjalan tanpa internet</li>
+ </ol>
+ <div class="hint">⚠️ Gunakan Chrome atau Firefox. Hindari Opera Mini/UC Browser (fitur simpan &amp; cetak tidak stabil). Rutin <b>Export JSON</b> sebagai cadangan data.</div>
+</section>
+
+<!-- ALUR -->
+<section class="card" id="alur">
+ <h2>🧭 Alur Kerja Guru dalam Aplikasi</h2>
+ <div class="flow">Identitas ➜ Modul Ajar ➜ Preview &amp; Cetak
+   ➜ KTP/ATP ➜ KKTP ➜ Prota/Promes   (otomatis dari TP)
+   ➜ Bank Soal ➜ Kisi-kisi/Soal/Kunci ➜ Kuis Siswa
+   ➜ LKPD ➜ Analisis Nilai
+   ➜ Afirmasi • Kartu Apresiasi • Refleksi • Jurnal   (alat KBC harian)</div>
+</section>
+
+<!-- FILOSOFI -->
+<section class="card" id="filosofi">
+ <h2>💚 Filosofi KBC dalam Aplikasi</h2>
+ <table>
+  <tr><th style="width:50%">Lakukan 💚</th><th>Hindari ❌</th></tr>
+  <tr><td>"Belum paham" → ayo coba lagi bersama</td><td>Label "bodoh / lemot / malas"</td></tr>
+  <tr><td>Nilai = cermin untuk bertumbuh</td><td>Nilai = alat ancaman &amp; hukuman</td></tr>
+  <tr><td>Remedial = kesempatan kedua penuh sabar</td><td>Remedial = hukuman</td></tr>
+  <tr><td>Memuji usaha &amp; keberanian</td><td>Hanya memuji nilai tertinggi</td></tr>
+ </table>
+</section>
+
+<!-- FONDASI -->
+<section class="card" id="fondasi">
+ <h2>🌱 5 Nilai Cinta &amp; Landasan Kurikulum</h2>
+ <div class="fondasi">
+  <div><span>🕌</span>Cinta Allah &amp; Rasul</div>
+  <div><span>📖</span>Cinta Ilmu</div>
+  <div><span>🤝</span>Cinta Diri &amp; Sesama</div>
+  <div><span>🌍</span>Cinta Lingkungan</div>
+  <div><span>🇮🇩</span>Cinta Tanah Air</div>
+ </div>
+ <table>
+  <tr><th>Dokumen</th><th>Cakupan</th></tr>
+  <tr><td>Kepka BSKAP No. 032/H/KR/2024</td><td>CP Fase A–F (mapel umum)</td></tr>
+  <tr><td>Kepka BSKAP No. 033/H/KR/2024</td><td>8 Dimensi Profil Lulusan</td></tr>
+  <tr><td>Dirjen Pendis No. 6711 Tahun 2024</td><td>CP mapel madrasah</td></tr>
+ </table>
+ <div class="hint">⚠️ Teks CP dimasukkan guru (tempel dari dokumen resmi). Aplikasi tidak menyimpan database CP — mohon selalu verifikasi dokumen asli terbaru.</div>
+</section>
+
+<!-- TEKNOLOGI -->
+<section class="card" id="teknologi">
+ <h2>🛠️ Teknologi</h2>
+ <p>✅ <b>Satu file index.html</b> — tanpa framework, tanpa dependency eksternal<br>
+ ✅ HTML5 + CSS3 + JavaScript murni (vanilla)<br>
+ ✅ Penyimpanan data <b>localStorage</b> + backup <b>JSON</b><br>
+ ✅ Responsif: media query + drawer navigasi + dark mode CSS variables</p>
+</section>
+
+<!-- KONTRIBUSI -->
+<section class="card" id="kontribusi">
+ <h2>🤝 Kontribusi &amp; Lisensi</h2>
+ <p>Kontribusi sangat terbuka 💚</p>
+ <ol class="steps">
+  <li><b>Fork</b> repo ini</li>
+  <li>Buat branch: <code>git checkout -b fitur-baru</code></li>
+  <li>Commit: <code>git commit -m "Menambah fitur X"</code></li>
+  <li>Push &amp; buat <b>Pull Request</b></li>
+ </ol>
+ <div class="hint">💡 Ide kontribusi: database CP resmi, ekspor Word/Excel, multi-bahasa, aksesibilitas.</div>
+ <p style="margin-top:10px">Distribusikan dengan lisensi <b>MIT</b> — bebas digunakan, dimodifikasi, dan dibagikan untuk kemajuan pendidikan Indonesia. 🇮🇩</p>
+</section>
+
+<!-- DEV -->
+<div class="devbox">
+ <h2>🌿 Dikembangkan dengan cinta oleh</h2>
+ <p style="font-size:20px;font-weight:800;margin:4px 0">HIJRAH45</p>
+ <p><a href="https://github.com/h45labs" target="_blank" rel="noopener">github.com/h45labs</a></p>
+ <a class="btngh" href="https://github.com/h45labs" target="_blank" rel="noopener">🐙 Kunjungi GitHub</a>
+</div>
+
+</main>
+
+<footer>
+ ⭐ Jika aplikasi ini bermanfaat, berikan <b>Star</b> di repo — terima kasih! 🌱<br>
+ 🌿 <b>Dikembangkan oleh HijraH45</b> • KBC Pro Mobile v3.0 • © 2025
+</footer>
+
+<script>
+const LSK='kbcReadmeTheme';
+document.getElementById('themeBtn').onclick=function(){
+ const cur=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+ document.documentElement.setAttribute('data-theme',cur);
+ this.textContent=cur==='dark'?'☀️':'🌙';
+ try{localStorage.setItem(LSK,cur)}catch(e){}
+};
+try{const t=localStorage.getItem(LSK);if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='☀️'}}catch(e){}
+</script>
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e7c66">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%230e7c66'/%3E%3Cstop%20offset='1'%20stop-color='%2311998e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M32%2011C48%2019%2052%2038%2032%2053C12%2038%2016%2019%2032%2011Z'%20fill='%23fff'/%3E%3Cpath%20d='M32%2050V24M32%2038L24%2031M32%2033L40%2027'%20stroke='%230e7c66'%20stroke-width='3'%20stroke-linecap='round'%20fill='none'/%3E%3C/svg%3E">
+<meta name="description" content="Perangkat Ajar PRO — KBC untuk Madrasah (MI/MTs/MA) & Pembelajaran Mendalam untuk Sekolah Umum (SD/SMP/SMA/SMK). Offline, gratis, responsif.">
+<title>🌿 Perangkat Ajar PRO — KBC & Pembelajaran Mendalam</title>
+<style>
+:root{--bg:#f0f5f4;--card:#fff;--txt:#22313f;--mut:#5a6b77;--pri:#0e7c66;--prid:#0b6152;--acc:#38ef7d;--line:#d6e3df;--soft:#eef7f5;--headbg:#e8f5f1;--headc:#0b5d4e;--shadow:0 2px 8px rgba(0,0,0,.08)}
+[data-theme=dark]{--bg:#0f1719;--card:#182326;--txt:#e2eeea;--mut:#93aca5;--pri:#2bbd9a;--prid:#0b5d4e;--acc:#3ce08a;--line:#274041;--soft:#1c2b2d;--headbg:#1c2f31;--headc:#7fe0c8;--shadow:0 2px 10px rgba(0,0,0,.5)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+body{background:var(--bg);color:var(--txt)}
+.topbar{position:sticky;top:0;z-index:210;display:flex;align-items:center;gap:10px;background:linear-gradient(120deg,#0e7c66,#11998e);color:#fff;padding:0 12px;height:56px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.topbar .t1{font-weight:700;font-size:15px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .t1 small{display:block;font-weight:400;font-size:10.5px;opacity:.9}
+.hamb,.tbtn{background:rgba(255,255,255,.16);border:0;color:#fff;font-size:20px;width:42px;height:42px;border-radius:10px;cursor:pointer;flex:0 0 auto}
+.hamb:active,.tbtn:active{background:rgba(255,255,255,.35)}
+.backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:190}
+.backdrop.show{display:block}
+.drawer{display:flex;flex-wrap:wrap;gap:5px;background:var(--prid);padding:9px 14px}
+.drawer button{border:0;background:rgba(255,255,255,.14);color:#fff;padding:10px 13px;border-radius:18px;cursor:pointer;font-size:13px}
+.drawer button.act,.drawer button:hover{background:var(--card);color:var(--prid);font-weight:600}
+@media(max-width:860px){
+ .drawer{position:fixed;top:56px;bottom:0;left:0;width:272px;flex-direction:column;flex-wrap:nowrap;overflow-y:auto;transform:translateX(-105%);transition:.25s;border-radius:0 16px 16px 0;z-index:200}
+ .drawer.open{transform:none}
+ .drawer button{text-align:left;padding:13px 15px;font-size:14px;border-radius:12px}
+}
+main{max-width:1100px;margin:14px auto;padding:0 12px}
+.page{display:none}.page.show{display:block}
+.card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:15px;margin-bottom:13px}
+.card h2{font-size:15.5px;color:var(--pri);margin-bottom:10px;border-left:4px solid var(--acc);padding-left:9px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+label{font-size:12.5px;font-weight:600;display:block;margin:7px 0 3px;color:var(--txt)}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-size:16px;background:var(--card);color:var(--txt)}
+textarea{resize:vertical;min-height:64px;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{display:flex;align-items:center;gap:5px;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:6px 11px;font-weight:500;font-size:12px;margin:0;cursor:pointer}
+.btn{border:0;border-radius:9px;padding:11px 16px;font-size:13.5px;font-weight:600;cursor:pointer;margin:4px 5px 4px 0}
+.b-green{background:#0e7c66;color:#fff}.b-orange{background:#f4a340;color:#fff}
+.b-blue{background:#2f6fa3;color:#fff}.b-red{background:#d64545;color:#fff}.b-gray{background:#dfe9e5;color:#234}
+[data-theme=dark] .b-gray{background:#24393c;color:#cfe}
+.hint{font-size:12px;color:var(--mut);background:var(--soft);border-left:3px solid var(--acc);padding:8px 10px;border-radius:6px;margin:9px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+th,td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{background:var(--headbg);color:var(--headc)}
+td input{border:0;width:100%;background:transparent;color:var(--txt);padding:2px;font-size:12.5px}
+.aff{background:linear-gradient(120deg,#eafff5,#e3fbef);border:2px dashed var(--pri);border-radius:12px;padding:16px;text-align:center;font-style:italic;font-size:15px;color:var(--headc);margin:10px 0}
+[data-theme=dark] .aff{background:#14282a}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
+.stat{background:var(--card);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow)}
+.stat b{font-size:25px;color:var(--pri);display:block}
+.qop{display:block;width:100%;text-align:left;margin:6px 0;padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:var(--soft);cursor:pointer;font-size:14.5px;color:var(--txt)}
+.qop:disabled{cursor:default}
+.qop.ok{background:#e3f9e5;border-color:#2e9e5b;font-weight:600}
+.qop.no{background:#fff3e0;border-color:#f4a340}
+.qgood{color:#2e9e5b;font-weight:600}.qsoft{color:#b26a00}
+.qprog{font-size:12px;color:var(--mut);margin-bottom:8px}
+.kartu{border:3px dashed var(--pri);background:linear-gradient(135deg,#eafff5,#e0f7e9);border-radius:18px;padding:24px;text-align:center;max-width:520px;margin:10px auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+[data-theme=dark] .kartu{background:#12312c}
+.kAtas{font-weight:700;color:#0e7c66;letter-spacing:2px}.kNama{font-size:23px;font-weight:700;color:#0b5d4e;margin:8px 0}
+.kIsi{font-size:14px}.kQuote{font-style:italic;margin:10px 0;font-size:13px}.kDari{font-size:13px;margin-top:8px}
+.garis{border-bottom:1.4px solid var(--txt);height:26px}
+.kop{text-align:center;margin-bottom:12px}.kop .k1{font-size:15px;font-weight:700;text-transform:uppercase}
+.kop .k2,.kop .k3{font-size:11.5px}.kop .judul{font-size:13.5px;font-weight:700;text-decoration:underline;margin:8px 0}
+#previewDoc{font-size:13px;line-height:1.6}#previewDoc h3{color:var(--pri);margin:14px 0 5px;font-size:13.5px}
+#previewDoc .ctr{text-align:center}
+.saved-item{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:7px 2px;font-size:13px}
+.saved-item .btn{padding:5px 10px;font-size:11.5px;margin:0}
+#printArea{display:none}
+footer{margin:20px 0 0;padding:16px 12px calc(16px + env(safe-area-inset-bottom));text-align:center;font-size:12.5px;color:var(--mut);border-top:1px solid var(--line)}
+footer a{color:var(--pri);font-weight:600;text-decoration:none}
+@media(max-width:720px){.grid,.stats{grid-template-columns:1fr}.stat b{font-size:22px}}
+@media print{
+ .topbar,.drawer,.backdrop,main,footer{display:none!important}
+ #printArea{display:block!important;color:#000}
+ body{background:#fff}
+ #printArea table th,#printArea table td{border:1px solid #555;background:#fff!important;color:#000!important}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+ <button class="hamb" id="hamb" aria-label="Menu">☰</button>
+ <div class="t1">🌿 Perangkat Ajar PRO<small>Madrasah (MI/MTs/MA) → KBC · Sekolah (SD/SMP/SMA/SMK) → Pembelajaran Mendalam · Offline</small></div>
+ <button class="tbtn" id="themeBtn" aria-label="Mode gelap">🌙</button>
+</header>
+<div class="backdrop" id="backdrop"></div>
+<nav class="drawer" id="drawer">
+ <button class="act" data-t="beranda" onclick="go('beranda')">🏠 Beranda</button>
+ <button data-t="ident" onclick="go('ident')">👤 Identitas</button>
+ <button data-t="modul" onclick="go('modul')">📘 Modul Ajar</button>
+ <button data-t="preview" onclick="go('preview')">👁 Preview</button>
+ <button data-t="ktpatp" onclick="go('ktpatp')">📑 KTP & ATP</button>
+ <button data-t="kktp" onclick="go('kktp')">🎯 KKTP</button>
+ <button data-t="protapromes" onclick="go('protapromes')">📅 Prota & Promes</button>
+ <button data-t="banksoal" onclick="go('banksoal')">📝 Bank Soal</button>
+ <button data-t="kuis" onclick="go('kuis')">🧠 Kuis Siswa</button>
+ <button data-t="lkpd" onclick="go('lkpd')">📋 LKPD</button>
+ <button data-t="nilai" onclick="go('nilai')">📊 Analisis Nilai</button>
+ <button data-t="apresiasi" onclick="go('apresiasi')">💬 Afirmasi & Apresiasi</button>
+ <button data-t="refleksi" onclick="go('refleksi')">🌱 Refleksi & Perasaan</button>
+ <button data-t="jurnal" onclick="go('jurnal')">📓 Jurnal</button>
+ <button data-t="panduan" onclick="go('panduan')">💚 Panduan</button>
+ <button data-t="data" onclick="go('data')">💾 Data</button>
+</nav>
+<main>
+
+<!-- BERANDA -->
+<section id="sec-beranda" class="page show">
+ <div class="stats">
+  <div class="stat"><b id="stModul">0</b>Modul Tersimpan</div>
+  <div class="stat"><b id="stSoal">0</b>Soal di Bank</div>
+  <div class="stat"><b id="stJurnal">0</b>Jurnal</div>
+ </div>
+ <div class="card"><h2>Kerangka Otomatis per Lembaga 🎛️</h2>
+  <table>
+   <tr><th>Jenis Lembaga</th><th>Jenjang</th><th>Kerangka</th><th>Ciri di Modul</th></tr>
+   <tr><td><b>Madrasah</b></td><td>MI · MTs · MA</td><td>🌿 KBC</td><td>Nilai Cinta, cek perasaan, afirmasi, refleksi syukur, remedial "kesempatan tumbuh"</td></tr>
+   <tr><td><b>Sekolah Umum</b></td><td>SD · SMP · SMA · SMK</td><td>🧠 Pembelajaran Mendalam</td><td>Prinsip Berkesadaran-Bermakna-Menggembirakan, tahap Memahami → Mengaplikasi → Merefleksi</td></tr>
+  </table>
+  <div class="hint">Pilih <b>Jenis Lembaga & Jenjang</b> di menu 📘 Modul Ajar — sisanya menyesuaikan otomatis (fase A–F, mapel, JP, struktur kegiatan).</div>
+ </div>
+ <div class="card"><h2>Afirmasi Hari Ini 💚</h2><div class="aff" id="stAff"></div></div>
+ <div class="card"><h2>Panduan Cepat</h2>
+  <div class="hint"><b>Alur membuat perangkat:</b><br>
+  1️⃣ <b>Identitas</b> → 2️⃣ <b>Modul Ajar</b> (pilih lembaga-jenjang-mapel, isi TP) → 3️⃣ <b>Preview & Cetak</b> →
+  4️⃣ <b>KTP, ATP, KKTP</b> otomatis → 5️⃣ <b>Prota/Promes</b> → 6️⃣ <b>Bank Soal</b> → 7️⃣ <b>LKPD</b> →
+  8️⃣ <b>Analisis Nilai</b> → 9️⃣ Alat harian: afirmasi, apresiasi, refleksi, jurnal</div>
+  <div class="hint">📱 HP: Chrome → ⋮ → "Tambahkan ke layar utama". 📤 Berbagi: Export/Import JSON di menu 💾.</div>
+ </div>
+</section>
+
+<!-- IDENTITAS -->
+<section id="sec-ident" class="page"><div class="card"><h2>Identitas Sekolah & Guru</h2><div class="grid">
+<div><label>Nama Guru / Penyusun</label><input type="text" id="penyusun"></div>
+<div><label>NIP / NUPTK</label><input type="text" id="nip"></div>
+<div><label>Nama Sekolah / Madrasah</label><input type="text" id="satuan" placeholder="cth: MI ..., MTs ..., SDN ..."></div>
+<div><label>Tahun Pelajaran</label><input type="text" id="ta" placeholder="2025/2026"></div>
+<div><label>Nama Kepala Sekolah/Madrasah</label><input type="text" id="kepsek"></div>
+<div><label>NIP Kepala</label><input type="text" id="nipKepsek"></div>
+</div><label>Alamat Sekolah</label><input type="text" id="alamat"></div></section>
+
+<!-- MODUL -->
+<section id="sec-modul" class="page"><div class="card"><h2>Form Modul Ajar</h2>
+<div class="grid">
+<div><label>Jenis Lembaga</label><select id="lembaga" onchange="onLembaga()"><option>Madrasah</option><option>Sekolah Umum</option></select></div>
+<div><label>Jenjang</label><select id="jenjang" onchange="onJenjang()"></select></div>
+<div><label>Kerangka (otomatis)</label><input type="text" id="fwLbl" readonly></div>
+<div><label>Mata Pelajaran</label><select id="mapel" onchange="onMapel()"></select></div>
+<div id="wCustom" style="display:none"><label>Nama Mapel (ketik sendiri)</label><input type="text" id="mapelCustom" placeholder="cth: Dasar-dasar Teknik Jaringan"></div>
+<div><label>Kelas</label><select id="kelas" onchange="onKelas()"></select></div>
+<div><label>Fase (otomatis)</label><input type="text" id="faseLbl" readonly></div>
+<div><label>Semester</label><select id="semester"><option>1 (Ganjil)</option><option>2 (Genap)</option></select></div>
+<div><label>JP per Pertemuan <span id="jpNote" style="font-weight:400"></span></label><input type="number" id="jp" value="2" min="1"></div>
+<div><label>Bab / Materi</label><input type="text" id="bab"></div>
+<div><label>Model Pembelajaran</label><select id="model" onchange="isiIntiIfEmpty()"><option>Problem Based Learning (PBL)</option><option>Project Based Learning (PjBL)</option><option>Discovery Learning</option><option>Pembelajaran Kooperatif</option><option>Direct Instruction</option></select></div>
+</div>
+<label>Dimensi Profil Lulusan (pilih 2–3)</label>
+<div class="chips"><label><input type="checkbox" name="dim" value="Keimanan & Ketakwaan">Keimanan & Ketakwaan</label><label><input type="checkbox" name="dim" value="Kewargaan">Kewargaan</label><label><input type="checkbox" name="dim" value="Penalaran Kritis">Penalaran Kritis</label><label><input type="checkbox" name="dim" value="Kreativitas">Kreativitas</label><label><input type="checkbox" name="dim" value="Kolaborasi">Kolaborasi</label><label><input type="checkbox" name="dim" value="Kemandirian">Kemandirian</label><label><input type="checkbox" name="dim" value="Kesehatan">Kesehatan</label><label><input type="checkbox" name="dim" value="Komunikasi">Komunikasi</label></div>
+<div id="wCinta">
+<label>Nilai Cinta yang Ditanamkan (KBC)</label>
+<div class="chips"><label><input type="checkbox" name="cinta" value="Cinta kepada Allah & Rasul-Nya">Cinta Allah & Rasul</label><label><input type="checkbox" name="cinta" value="Cinta ilmu">Cinta ilmu</label><label><input type="checkbox" name="cinta" value="Cinta diri & sesama">Cinta diri & sesama</label><label><input type="checkbox" name="cinta" value="Cinta lingkungan">Cinta lingkungan</label><label><input type="checkbox" name="cinta" value="Cinta tanah air">Cinta tanah air</label></div>
+</div>
+<div id="wPrinsip" style="display:none">
+<label>Prinsip Pembelajaran Mendalam</label>
+<div class="chips"><label><input type="checkbox" name="prinsip" value="Berkesadaran">Berkesadaran</label><label><input type="checkbox" name="prinsip" value="Bermakna">Bermakna</label><label><input type="checkbox" name="prinsip" value="Menggembirakan">Menggembirakan</label></div>
+</div>
+<label>CP — Capaian Pembelajaran (tempel teks resmi)</label><textarea id="cp"></textarea>
+<label>Tujuan Pembelajaran — 1 TP per baris</label><textarea id="tp"></textarea>
+<label>Indikator Ketercapaian — 1 per baris</label><textarea id="ipk"></textarea>
+<label>Pemahaman Bermakna</label><textarea id="makna"></textarea>
+<label>Pertanyaan Pemantik — 1 per baris</label><textarea id="pemantik"></textarea>
+<label>Kegiatan Inti — 1 langkah per baris <button class="btn b-gray" style="padding:3px 12px;font-size:11px" onclick="isiInti()">⚡ Isi otomatis</button></label><textarea id="inti"></textarea>
+<div class="hint" id="intiNote">Untuk PM: langkah otomatis memakai penanda [MEMAHAMI] [MENGAPLIKASI] [MEREFLEKSI] — Preview akan memecahnya menjadi 3 tahap.</div>
+<label>Media / Alat</label><input type="text" id="media">
+<label>Teknik Asesmen</label><input type="text" id="asTeknik">
+<div class="chips"><label><input type="checkbox" name="ases" value="Diagnostik" checked>Diagnostik</label><label><input type="checkbox" name="ases" value="Formatif" checked>Formatif</label><label><input type="checkbox" name="ases" value="Sumatif">Sumatif</label></div>
+<div style="margin-top:10px">
+<button class="btn b-green" onclick="buildPreview()">✨ Generate & Preview</button>
+<button class="btn b-orange" onclick="isiContoh()">📝 Contoh (otomatis sesuai kerangka)</button>
+<button class="btn b-red" onclick="resetModul()">🗑 Kosongkan</button></div>
+</div></section>
+
+<!-- PREVIEW -->
+<section id="sec-preview" class="page">
+<div style="margin-bottom:8px"><button class="btn b-green" onclick="doPrint($('previewDoc').innerHTML,$('previewTitle').value)">🖨 Cetak / PDF</button>
+<button class="btn b-blue" onclick="simpanModul()">💾 Simpan Modul</button></div>
+<div class="card"><div id="previewDoc"></div><input type="hidden" id="previewTitle" value="MODUL AJAR"></div></section>
+
+<!-- KTP ATP -->
+<section id="sec-ktpatp" class="page"><div class="card"><h2>KTP & ATP — otomatis dari TP di Modul Ajar</h2>
+<div style="margin-bottom:6px"><button class="btn b-green" onclick="genKTPATP()">⚡ Generate</button>
+<button class="btn b-orange" onclick="doPrint($('ktpOut').innerHTML+'<br>'+$('atpOut').innerHTML,'KTP & ATP')">🖨 Cetak</button></div>
+<div id="ktpOut"></div><div id="atpOut"></div></div></section>
+
+<!-- KKTP -->
+<section id="sec-kktp" class="page"><div class="card"><h2>KKTP — 4 Level (Baru Berkembang → Mahir)</h2>
+<div style="margin-bottom:6px"><button class="btn b-green" onclick="genKKTP()">⚡ Generate</button>
+<button class="btn b-orange" onclick="doPrint($('kktpOut').innerHTML,'KKTP')">🖨 Cetak</button></div>
+<div id="kktpOut"></div></div></section>
+
+<!-- PROTA PROMES -->
+<section id="sec-protapromes" class="page"><div class="card"><h2>PROTA & PROMES</h2>
+<label>Rentang Isi Otomatis</label><select id="rentangProta" style="max-width:240px"><option value="0">1 Tahun (Jul–Jun)</option><option value="1">Semester 1 (Jul–Des)</option><option value="2">Semester 2 (Jan–Jun)</option></select>
+<div style="margin:8px 0">
+<button class="btn b-green" onclick="autoProta()">⚡ Prota dari TP</button>
+<button class="btn b-blue" onclick="autoPromes()">⚡ Promes dari Prota</button>
+<button class="btn b-gray" onclick="addProta()">+ Baris Prota</button>
+<button class="btn b-gray" onclick="addPromes()">+ Baris Promes</button>
+<button class="btn b-orange" onclick="doPrint(protaHTML(),'PROGRAM TAHUNAN (PROTA)')">🖨 Prota</button>
+<button class="btn b-orange" onclick="doPrint(promesHTML(),'PROGRAM SEMESTER (PROMES)')">🖨 Promes</button></div>
+<h3 style="color:var(--pri);margin-top:10px">📅 PROTA</h3>
+<table><tr><th style="width:6%">No</th><th style="width:16%">Bulan</th><th>Materi / TP</th><th style="width:10%">JP</th><th style="width:6%"></th></tr><tbody id="protaBody"></tbody></table>
+<p><b>Total JP Prota: <span id="sumJP">0</span></b></p>
+<h3 style="color:var(--pri);margin-top:12px">🗓 PROMES</h3>
+<table><tr><th style="width:6%">No</th><th style="width:15%">Bulan</th><th style="width:14%">Minggu</th><th>Materi / TP</th><th style="width:10%">JP</th><th style="width:6%"></th></tr><tbody id="promesBody"></tbody></table>
+<p><b>Total JP Promes: <span id="sumJP2">0</span></b></p></div></section>
+
+<!-- BANK SOAL -->
+<section id="sec-banksoal" class="page">
+<div class="card"><h2>➕ Tambah Soal</h2>
+<div class="grid">
+<div><label>TP / Materi</label><input type="text" id="bsTp"></div>
+<div><label>Indikator Soal</label><input type="text" id="bsInd"></div>
+<div><label>Level Kognitif</label><select id="bsLevel"><option>C1 — Mengingat</option><option>C2 — Memahami</option><option>C3 — Menerapkan</option><option>C4 — Menganalisis</option><option>C5 — Menilai</option><option>C6 — Mencipta</option></select></div>
+<div><label>Bentuk Soal</label><select id="bsBentuk"><option>Pilihan Ganda</option><option>Isian</option><option>Uraian</option></select></div></div>
+<label>Pertanyaan</label><textarea id="bsSoal"></textarea>
+<div class="grid">
+<div><label>Opsi A</label><input type="text" id="bsA"></div><div><label>Opsi B</label><input type="text" id="bsB"></div>
+<div><label>Opsi C</label><input type="text" id="bsC"></div><div><label>Opsi D</label><input type="text" id="bsD"></div>
+<div><label>Kunci (A/B/C/D atau jawaban)</label><input type="text" id="bsKunci"></div>
+<div><label>Skor</label><input type="number" id="bsSkor" value="1" min="1"></div></div>
+<button class="btn b-green" onclick="addSoal()">➕ Tambah ke Bank</button>
+<button class="btn b-gray" onclick="clearSoalForm()">🧽 Bersihkan</button></div>
+<div class="card"><h2>🗂 Bank Soal (<span id="bankCount">0</span> soal)</h2>
+<table><tr><th style="width:5%">No</th><th style="width:14%">Bentuk</th><th style="width:11%">Level</th><th>Soal</th><th style="width:9%">Kunci</th><th style="width:6%">Skor</th><th style="width:6%"></th></tr><tbody id="bankBody"></tbody></table></div>
+<div class="card"><h2>🖨 Hasilkan Dokumen</h2>
+<button class="btn b-orange" onclick="doPrint(kisiHTML(),'KISI-KISI PENULISAN SOAL')">Kisi-kisi</button>
+<button class="btn b-orange" onclick="doPrint(soalHTML(),'LEMBAR SOAL')">Lembar Soal</button>
+<button class="btn b-orange" onclick="doPrint(kunciHTML(),'KUNCI JAWABAN')">Kunci Jawaban</button>
+<button class="btn b-green" onclick="bukaKuis()">▶ Mulai Kuis Siswa</button></div></section>
+
+<!-- KUIS -->
+<section id="sec-kuis" class="page"><div class="card"><h2>🧠 Kuis Siswa — Feedback Lembut</h2>
+<div class="hint">💚 Jawaban salah <b>tidak dihukum</b> — muncul pesan penyemangat & jawaban benar diperlihatkan.</div>
+<label><input type="checkbox" id="qAcak" style="width:auto"> Acak urutan soal</label>
+<div style="margin-top:6px"><button class="btn b-green" onclick="mulaiKuis()">▶ Mulai Kuis</button></div>
+<div id="quizBox" style="margin-top:10px"><i>Klik "Mulai Kuis". Menggunakan soal Pilihan Ganda dari Bank Soal.</i></div></div></section>
+
+<!-- LKPD -->
+<section id="sec-lkpd" class="page"><div class="card"><h2>📋 LKPD Builder (Bahasa Positif Otomatis)</h2>
+<div class="grid">
+<div><label>Judul LKPD</label><input type="text" id="lkJudul"></div>
+<div><label>Mapel</label><input type="text" id="lkMapel"></div>
+<div><label>Kelas</label><input type="text" id="lkKelas"></div>
+<div><label>Alokasi</label><input type="text" id="lkAlokasi" placeholder="2 JP"></div></div>
+<label>Tujuan Kegiatan — 1 per baris</label><textarea id="lkTujuan"></textarea>
+<label>Alat & Bahan</label><input type="text" id="lkAlat">
+<label>Langkah Kerja — 1 per baris</label><textarea id="lkLangkah"></textarea>
+<div class="grid">
+<div><label>Jumlah Baris Tabel Isian</label><input type="number" id="lkBaris" value="4" min="1"></div>
+<div><label>Judul Kolom (pisah koma)</label><input type="text" id="lkKol" placeholder="No, Hasil Pengamatan, Keterangan"></div></div>
+<label>Pertanyaan Diskusi — 1 per baris</label><textarea id="lkTanya"></textarea>
+<div style="margin-bottom:8px"><button class="btn b-green" onclick="buildLKPD()">✨ Buat LKPD</button>
+<button class="btn b-orange" onclick="doPrint($('lkpdOut').innerHTML,'LEMBAR KERJA PESERTA DIDIK (LKPD)')">🖨 Cetak</button></div>
+<div id="lkpdOut"></div></div></section>
+
+<!-- NILAI -->
+<section id="sec-nilai" class="page"><div class="card"><h2>📊 Analisis Nilai (Bingkai Positif)</h2>
+<div class="grid"><div><label>KKM / Batas Tuntas</label><input type="number" id="kkm" value="75"></div></div>
+<label>Data Siswa — format <b>Nama;Nilai</b> (1 baris = 1 siswa)</label>
+<textarea id="nilaiIn" style="min-height:130px" placeholder="Ahmad;85
+Aisyah;70
+Budi;92"></textarea>
+<div style="margin-bottom:8px"><button class="btn b-green" onclick="analisisNilai()">⚡ Analisis</button>
+<button class="btn b-orange" onclick="doPrint($('nilaiOut').innerHTML,'REKAP ANALISIS NILAI')">🖨 Cetak</button></div>
+<div id="nilaiOut"></div></div></section>
+
+<!-- APRESIASI -->
+<section id="sec-apresiasi" class="page">
+<div class="card"><h2>💬 Afirmasi Guru</h2><div class="aff" id="affBox"></div>
+<button class="btn b-green" onclick="tampilAfirm()">🔄 Afirmasi Lain</button></div>
+<div class="card"><h2>🌟 Kartu Apresiasi Siswa</h2>
+<div class="grid">
+<div><label>Nama Siswa</label><input type="text" id="kaNama"></div>
+<div><label>Dari</label><input type="text" id="kaDari"></div></div>
+<label>Alasan apresiasi</label><textarea id="kaAlasan" placeholder="cth: keberanianmu bertanya hari ini luar biasa"></textarea>
+<div style="margin-bottom:8px"><button class="btn b-green" onclick="buatKartu()">✨ Buat Kartu</button>
+<button class="btn b-orange" onclick="doPrint($('kartuOut').innerHTML,'KARTU APRESIASI')">🖨 Cetak</button></div>
+<div id="kartuOut"></div></div>
+<div class="card"><h2>⭐ Lembar "2 Bintang 1 Harapan"</h2>
+<button class="btn b-orange" onclick="doPrint(b2hHTML(),'2 BINTANG 1 HARAPAN')">🖨 Cetak Lembar</button>
+<div class="hint">Dipakai siswa saling memberi umpan balik: 2 apresiasi + 1 saran santun.</div></div></section>
+
+<!-- REFLEKSI -->
+<section id="sec-refleksi" class="page"><div class="card"><h2>🌱 Lembar Cetak Siap Pakai</h2>
+<button class="btn b-orange" onclick="doPrint(refSiswaHTML(),'LEMBAR REFLEKSI SISWA')">🖨 Refleksi Siswa</button>
+<button class="btn b-orange" onclick="doPrint(refGuruHTML(),'LEMBAR REFLEKSI GURU')">🖨 Refleksi Guru</button>
+<button class="btn b-orange" onclick="doPrint(cekHTML(),'CEK PERASAAN HARIAN')">🖨 Cek Perasaan</button>
+<div class="hint">💚 Perasaan siswa yang didengar = belajar yang bermakna (berlaku di KBC & PM).</div></div></section>
+
+<!-- JURNAL -->
+<section id="sec-jurnal" class="page"><div class="card"><h2>📓 Jurnal Mengajar</h2>
+<div class="grid">
+<div><label>Tanggal</label><input type="date" id="jt"></div>
+<div><label>Kelas</label><input type="text" id="jk"></div>
+<div><label>Materi</label><input type="text" id="jm"></div>
+<div><label>Siswa yang perlu perhatian 💚</label><input type="text" id="jper"></div></div>
+<label>Kegiatan</label><textarea id="jkeg"></textarea>
+<label>Kendala</label><textarea id="jken"></textarea>
+<label>Tindak Lanjut</label><textarea id="jtin"></textarea>
+<div style="margin:8px 0"><button class="btn b-green" onclick="addJurnal()">➕ Simpan Entri</button>
+<button class="btn b-orange" onclick="doPrint(jurnalHTML(),'JURNAL MENGAJAR')">🖨 Cetak Jurnal</button></div>
+<table><tr><th style="width:10%">Tgl</th><th style="width:8%">Kelas</th><th style="width:14%">Materi</th><th>Kegiatan</th><th style="width:12%">Kendala</th><th style="width:12%">Perlu Perhatian</th><th style="width:12%">Tindak Lanjut</th><th style="width:5%"></th></tr><tbody id="jurBody"></tbody></table></div></section>
+
+<!-- PANDUAN -->
+<section id="sec-panduan" class="page">
+<div class="card"><h2>🎛️ Dua Kerangka, Satu Aplikasi</h2>
+<table>
+<tr><th></th><th>🌿 KBC (Madrasah)</th><th>🧠 Pembelajaran Mendalam (Sekolah Umum)</th></tr>
+<tr><td><b>Jenjang</b></td><td>MI · MTs · MA</td><td>SD · SMP · SMA · SMK</td></tr>
+<tr><td><b>Inti pendekatan</b></td><td>Kasih sayang: siswa aman, dihargai, dicintai</td><td>Belajar berkesadaran, bermakna, menggembirakan</td></tr>
+<tr><td><b>Penanda di modul</b></td><td>5 Nilai Cinta</td><td>3 Prinsip PM</td></tr>
+<tr><td><b>Struktur kegiatan</b></td><td>Pembukaan–Inti–Penutup (+afirmasi & refleksi syukur)</td><td>Pembukaan–Memahami–Mengaplikasi–Merefleksi–Penutup</td></tr>
+<tr><td><b>Remedial</b></td><td colspan="2">Sama: kesempatan tumbuh, pendampingan penuh sabar — bukan hukuman</td></tr>
+</table>
+</div>
+<div class="card"><h2>🌿 KBC — 5 Nilai Cinta (Madrasah)</h2>
+<p style="font-size:13px">🕌 Cinta Allah & Rasul • 📖 Cinta Ilmu • 🤝 Cinta Diri & Sesama • 🌍 Cinta Lingkungan • 🇮🇩 Cinta Tanah Air</p>
+<div class="hint">Cek perasaan, kalimat afirmatif, "2 Bintang 1 Harapan", refleksi syukur — semua otomatis tersisip di modul.</div>
+</div>
+<div class="card"><h2>🧠 Pembelajaran Mendalam (Sekolah Umum)</h2>
+<p style="font-size:13px"><b>3 Prinsip:</b> Berkesadaran • Bermakna • Menggembirakan</p>
+<table>
+<tr><th style="width:28%">Pengalaman Belajar</th><th>Wujud di Kelas</th></tr>
+<tr><td><b>🧠 Memahami</b></td><td>Membangun pengetahuan: apersepsi, eksplorasi konsep, pertanyaan pemantik</td></tr>
+<tr><td><b>🛠️ Mengaplikasi</b></td><td>Mengolah & menerapkan: kerja kelompok, proyek, presentasi, umpan balik</td></tr>
+<tr><td><b>💡 Merefleksi</b></td><td>Memaknai: refleksi proses, koneksi ke kehidupan, apresiasi usaha</td></tr>
+</table>
+<p style="font-size:13px;margin-top:8px"><b>4 Kerangka:</b> Praktik pedagogis • Kemitraan pembelajaran • Lingkungan pembelajaran • Pemanfaatan digital</p>
+<div class="hint">📌 Landasan: 8 Dimensi Profil Lulusan (Kepka BSKAP 033/H/KR/2024) & CP Fase A–F (032/H/KR/2024). Verifikasi dokumen resmi terbaru.</div>
+</div>
+<div class="card"><h2>💚 Prinsip yang Sama di Kedua Kerangka</h2>
+<table><tr><th>Lakukan 💚</th><th>Hindari ❌</th></tr>
+<tr><td>"Belum paham" → ayo coba lagi bersama</td><td>Label "bodoh / lemot / malas"</td></tr>
+<tr><td>Nilai = cermin untuk bertumbuh</td><td>Nilai = alat ancaman & hukuman</td></tr>
+<tr><td>Remedial = kesempatan kedua penuh sabar</td><td>Remedial = hukuman</td></tr>
+<tr><td>Memuji usaha & keberanian</td><td>Hanya memuji nilai tertinggi</td></tr></table>
+</div>
+</section>
+
+<!-- DATA -->
+<section id="sec-data" class="page"><div class="card"><h2>💾 Data Tersimpan</h2>
+<button class="btn b-blue" onclick="exportJSON()">⬇ Export Semua (JSON)</button>
+<button class="btn b-orange" onclick="$('impFile').click()">⬆ Import JSON</button>
+<input type="file" id="impFile" accept=".json" style="display:none" onchange="importJSON(this)">
+<button class="btn b-red" onclick="resetSemua()">🧹 Hapus Semua</button>
+<div id="savedList" style="margin-top:10px"></div>
+<div class="hint">⚠️ Data tersimpan di browser perangkat ini. Rutin <b>Export JSON</b> sebagai cadangan.</div></div></section>
+</main>
+
+<footer>🌿 Dikembangkan oleh <a href="https://github.com/h45labs" target="_blank" rel="noopener"><b>HijraH45</b></a> • Perangkat Ajar PRO v2.0 • KBC & Pembelajaran Mendalam</footer>
+<div id="printArea"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const LSK='kbcProV3';
+let S=JSON.parse(localStorage.getItem(LSK)||'null')||{ident:{},modul:{},saved:[],prota:[],promes:[],bank:[],jurnal:[],theme:'light'};
+const save=()=>localStorage.setItem(LSK,JSON.stringify(S));
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const lines=t=>String(t||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+const vals=n=>[...document.querySelectorAll('input[name="'+n+'"]:checked')].map(x=>x.value);
+const setCks=(n,a)=>document.querySelectorAll('input[name="'+n+'"]').forEach(c=>c.checked=a.includes(c.value));
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const val=n=>$(n).value, set=(n,v)=>$(n).value=v;
+
+/* ═══ LEMBAGA · JENJANG · KERANGKA ═══ */
+const MD=["Al-Qur'an Hadis","Akidah Akhlak","Fikih","SKI","Bahasa Arab"];
+const MPL_SD=["Pendidikan Pancasila","Bahasa Indonesia","Matematika","IPAS","Seni Budaya (SBdP)","PJOK","Bahasa Inggris"];
+const MPL_SMP=["Pendidikan Pancasila","Bahasa Indonesia","Matematika","IPA","IPS","Bahasa Inggris","Informatika","PJOK","Seni Budaya","Prakarya"];
+const MPL_SMA=["Pendidikan Pancasila","Bahasa Indonesia","Matematika","Biologi","Fisika","Kimia","Ekonomi","Geografi","Sosiologi","Sejarah","Bahasa Inggris","Informatika","PJOK","Seni Budaya"];
+const MPL_SMK=["Pendidikan Pancasila","Bahasa Indonesia","Matematika","Bahasa Inggris","Informatika","PJOK","Seni Budaya","Projek Kreatif & Kewirausahaan"];
+const LEMBAGA={
+ "Madrasah":{jenjang:["MI","MTs","MA"],fw:"kbc"},
+ "Sekolah Umum":{jenjang:["SD","SMP","SMA","SMK"],fw:"pm"}};
+const FASE_SD={"1":"A","2":"A","3":"B","4":"B","5":"C","6":"C"};
+const FASE_SMA={"X":"E","XI":"F","XII":"F"};
+const JEN={
+ "SD":{kelas:["1","2","3","4","5","6"],fase:FASE_SD,menit:35,mapel:MPL_SD},
+ "MI":{kelas:["1","2","3","4","5","6"],fase:FASE_SD,menit:35,mapel:MPL_SD.concat(MD)},
+ "SMP":{kelas:["VII","VIII","IX"],fase:{VII:"D",VIII:"D",IX:"D"},menit:40,mapel:MPL_SMP},
+ "MTs":{kelas:["VII","VIII","IX"],fase:{VII:"D",VIII:"D",IX:"D"},menit:40,mapel:MPL_SMP.concat(MD)},
+ "SMA":{kelas:["X","XI","XII"],fase:FASE_SMA,menit:45,mapel:MPL_SMA},
+ "MA":{kelas:["X","XI","XII"],fase:FASE_SMA,menit:45,mapel:MPL_SMA.concat(MD)},
+ "SMK":{kelas:["X","XI","XII"],fase:FASE_SMA,menit:45,mapel:MPL_SMK}};
+const J=()=>JEN[val('jenjang')]||JEN["MTs"];
+const fwOf=()=>(LEMBAGA[val('lembaga')]||LEMBAGA["Madrasah"]).fw;
+const faseOf=()=>J().fase[val('kelas')]||'';
+const mapelNow=()=>val('mapel')==='__custom'?(val('mapelCustom')||'Mapel'):(val('mapel')||'Mapel');
+const FW={
+ kbc:{judul:'MODUL AJAR — KURIKULUM BERBASIS CINTA (KBC)',badge:'🌿 KBC — Kurikulum Berbasis Cinta',row:'Nilai Cinta',wrap:'wCinta',aff:'🌿 Afirmasi Guru (KBC)'},
+ pm:{judul:'MODUL AJAR — PEMBELAJARAN MENDALAM (DEEP LEARNING)',badge:'🧠 PM — Pembelajaran Mendalam (Deep Learning)',row:'Prinsip PM',wrap:'wPrinsip',aff:'🌿 Suasana Belajar Menggembirakan (PM)'}};
+
+/* TEMA */
+function setTheme(t){S.theme=t;document.documentElement.setAttribute('data-theme',t);$('themeBtn').textContent=t==='dark'?'☀️':'🌙';save();}
+ $('themeBtn').onclick=()=>setTheme(S.theme==='dark'?'light':'dark');
+
+/* DRAWER & NAV */
+const drawer=$('drawer'),bd=$('backdrop');
+ $('hamb').onclick=()=>{drawer.classList.toggle('open');bd.classList.toggle('show');};
+bd.onclick=()=>{drawer.classList.remove('open');bd.classList.remove('show');};
+function go(t){
+ document.querySelectorAll('#drawer button').forEach(x=>x.classList.toggle('act',x.dataset.t===t));
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('show'));
+ const p=$('sec-'+t);if(p)p.classList.add('show');
+ drawer.classList.remove('open');bd.classList.remove('show');window.scrollTo(0,0);
+ if(t==='banksoal')renderBank();if(t==='jurnal')renderJurnal();if(t==='data')renderSaved();
+ if(t==='protapromes'){renderProta();renderPromes();}
+ if(t==='beranda')updateStats();if(t==='apresiasi')tampilAfirm();}
+
+/* AFIRMASI & STATS */
+const AFF=['Salah itu bagian dari belajar, coba lagi ya.','Bapak/Ibu percaya kamu pasti bisa.','Terima kasih sudah berani bertanya.','Kesalahanmu hari ini adalah langkah menuju paham besok.','Kamu berhak bahagia saat belajar.','Suaramu penting di kelas ini.','Tidak ada yang sempurna, yang ada usaha yang tulus.','Setiap anak adalah bintang dengan cahaya masing-masing.','Belajar bukan lomba, tetapi perjalanan tumbuh bersama.','Ayo coba lagi, Bapak/Ibu di sini menemanimu.','Pertanyaanmu membuat kelas kita makin cerdas.','Kamu boleh lambat, tidak apa-apa, yang penting jangan berhenti.','Terima kasih sudah jujur, itu sifat orang berani.','Karya kelompokmu menunjukkan kerja sama yang indah.','Hari ini kamu lebih baik dari kemarin, itu namanya tumbuh.','Berpikir itu ibadah, teruslah bertanya.','Kesabaranmu menghadapi soal sulit itu luar biasa.','Bapak/Ibu bangga dengan usahamu, bukan hanya nilaimu.','Mari saling menguatkan, bukan saling merendahkan.','Cinta ilmu dulu, nilai akan mengikuti.'];
+function tampilAfirm(){$('affBox').textContent='\u201C'+rnd(AFF)+'\u201D';}
+function updateStats(){$('stModul').textContent=S.saved.length;$('stSoal').textContent=S.bank.length;$('stJurnal').textContent=S.jurnal.length;$('stAff').textContent='\u201C'+AFF[new Date().getDate()%AFF.length]+'\u201D';}
+
+/* ═══ FORM ═══ */
+const M=['penyusun','nip','satuan','ta','kepsek','nipKepsek','alamat'];
+const F=['semester','jp','bab','model','cp','tp','ipk','makna','pemantik','inti','media','asTeknik','mapelCustom'];
+function buildKelasOpt(restore){
+ const j=J();
+ $('kelas').innerHTML=j.kelas.map(k=>'<option>'+k+'</option>').join('');
+ const sv=restore?S.modul.kelas:null;
+ if(sv&&j.kelas.includes(sv))set('kelas',sv);else set('kelas',j.kelas[0]);
+ $('faseLbl').textContent='Fase '+(faseOf()||'—');
+ $('jpNote').textContent='(1 JP = '+j.menit+' menit)';
+ S.modul.kelas=val('kelas');save();}
+function buildJenjangOpt(restore){
+ const list=LEMBAGA[val('lembaga')].jenjang;
+ $('jenjang').innerHTML=list.map(j=>'<option>'+j+'</option>').join('');
+ const sv=restore?S.modul.jenjang:null;
+ if(sv){const sv2=({'SMP/MTs':'MTs','SMA/MA':'MA'})[sv]||sv;
+  if(list.includes(sv2))set('jenjang',sv2);else set('jenjang',list[0]);}
+ else set('jenjang',list[0]);
+ S.modul.lembaga=val('lembaga');S.modul.jenjang=val('jenjang');save();
+ buildKelasOpt(restore);}
+function buildMapelOpt(restore){
+ const j=J();
+ $('mapel').innerHTML='<option value="">— pilih —</option>'+j.mapel.map(m=>'<option>'+esc(m)+'</option>').join('')+'<option value="__custom">✍️ Ketik sendiri / Mapel Kejuruan</option>';
+ const sv=restore?S.modul.mapel:null;
+ if(sv){if(j.mapel.includes(sv)){set('mapel',sv);}else{set('mapel','__custom');if(!val('mapelCustom'))set('mapelCustom',sv);}}
+ else set('mapel','');
+ custCheck();}
+function custCheck(){$('wCustom').style.display=val('mapel')==='__custom'?'block':'none';}
+function updateFwUI(){
+ const f=fwOf(),Fw=FW[f];
+ $('fwLbl').value=Fw.badge;
+ $('wCinta').style.display=f==='kbc'?'block':'none';
+ $('wPrinsip').style.display=f==='pm'?'block':'none';}
+function onLembaga(){buildJenjangOpt(false);buildMapelOpt(false);updateFwUI();S.modul.mapel=val('mapel');S.modul.mapelCustom=val('mapelCustom');save();}
+function onJenjang(){buildKelasOpt(true);buildMapelOpt(false);S.modul.mapel=val('mapel');save();}
+function onKelas(){buildKelasOpt(true);}
+function onMapel(){custCheck();S.modul.mapel=val('mapel');save();
+ if(val('mapel')&&val('mapel')!=='__custom'&&!val('cp').trim())set('cp','(Tempel teks CP resmi '+faseOf()+' mapel '+val('mapel')+' — Kepka BSKAP 032/H/KR/2024; mapel madrasah: Dirjen Pendis 6711/2024. Verifikasi dokumen asli.)');S.modul.cp=val('cp');save();}
+function bindAll(){
+ M.forEach(n=>$(n).addEventListener('input',()=>{S.ident[n]=$(n).value;save();}));
+ F.forEach(n=>$(n).addEventListener('input',()=>{S.modul[n]=$(n).value;save();}));
+ ['dim','cinta','prinsip','ases'].forEach(n=>document.querySelectorAll('input[name="'+n+'"]').forEach(c=>c.addEventListener('change',()=>{S.modul['_'+n]=vals(n);save();})));
+ $('mapelCustom').addEventListener('input',()=>{S.modul.mapelCustom=val('mapelCustom');save();});}
+function refreshForm(){
+ M.forEach(n=>set(n,S.ident[n]||''));
+ const d={jp:'2',semester:'1 (Ganjil)'};
+ F.forEach(n=>set(n,S.modul[n]!==undefined?S.modul[n]:(d[n]||'')));
+ set('lembaga',S.modul.lembaga||'Madrasah');
+ buildJenjangOpt(true);buildMapelOpt(true);updateFwUI();
+ setCks('dim',S.modul._dim||[]);
+ setCks('cinta',S.modul._cinta||[]);
+ setCks('prinsip',S.modul._prinsip||['Berkesadaran','Bermakna','Menggembirakan']);
+ setCks('ases',S.modul._ases||['Diagnostik','Formatif']);}
+
+/* ═══ TEKS OTOMATIS PER KERANGKA ═══ */
+const PEMBUKAAN_KBC='• Salam, doa dipimpin peserta didik, presensi dengan senyuman\n• Cek perasaan: peserta didik menunjukkan perasaannya hari ini\n• Kalimat afirmatif guru: "Salah itu bagian dari belajar. Bapak/Ibu percaya kalian pasti bisa."\n• Penyampaian tujuan & manfaat pembelajaran';
+const PENUTUP_KBC='• Kesimpulan dibangun bersama peserta didik\n• Refleksi syukur: "Apa yang kamu syukuri hari ini?"\n• Apresiasi guru atas usaha & keberanian semua peserta didik\n• Doa penutup & salam';
+const PEMBUKAAN_PM='• Salam, presensi dengan senyuman, doa pembuka (sesuai tradisi sekolah)\n• Kesiapan belajar berkesadaran: tarik napas, fokus, cek perasaan singkat\n• Tujuan & manfaat pembelajaran yang bermakna\n• Kesepakatan kelas agar belajar menggembirakan';
+const PENUTUP_PM='• Kesimpulan dibangun bersama peserta didik\n• Refleksi: apa yang dipahami, apa yang masih menantang\n• Apresiasi usaha & kolaborasi semua peserta didik\n• Info kegiatan berikutnya & salam';
+const REMED='• Remedial = kesempatan tumbuh, BUKAN hukuman; didampingi penuh kesabaran\n• Materi diulang dengan pendekatan & contoh lebih sederhana';
+const PENG='• Tantangan/masalah lebih kompleks bagi yang tuntas\n• Tutor sebaya untuk menumbuhkan kepedulian antarteman';
+const REFL='• Apakah semua peserta didik terlibat aktif?\n• Siapa yang memerlukan perhatian lebih?\n• Kegiatan mana yang paling menghidupkan kelas?';
+const KBC_INTI={
+ 'Problem Based Learning (PBL)':'Orientasi masalah nyata terkait materi\nMengorganisasi kelompok kolaboratif\nPenyelidikan/diskusi kelompok dengan LKPD\nPresentasi & diskusi kelas dengan "2 Bintang 1 Harapan"\nAnalisis & evaluasi bersama guru',
+ 'Project Based Learning (PjBL)':'Penentuan proyek & pertanyaan mendasar\nPerancangan proyek dalam kelompok\nPenyusunan jadwal & pembagian tugas\nPembuatan proyek dengan pendampingan\nPresentasi karya & apresiasi antarteman\nEvaluasi & refleksi proses',
+ 'Discovery Learning':'Stimulasi: pengamatan objek/permasalahan\nIdentifikasi masalah oleh peserta didik\nPengumpulan data & hipotesis\nPengujian hipotesis dalam diskusi\nPenarikan kesimpulan bersama',
+ 'Pembelajaran Kooperatif':'Penguatan konsep singkat oleh guru\nPembagian kelompok & peran setiap anggota\nKerja kelompok dengan LKPD\nPresentasi bergilir\nApresiasi "2 Bintang 1 Harapan" & penguatan',
+ 'Direct Instruction':'Apersepsi & penguatan konsep bertahap\nPemodelan/contoh oleh guru\nLatihan terbimbing bersama\nLatihan mandiri dengan dukungan\nUmpan balik positif & penguatan'};
+const PM_INTI={
+ 'Problem Based Learning (PBL)':'[MEMAHAMI]\nOrientasi masalah nyata di lingkungan sekitar peserta didik\nIdentifikasi & pembatasan masalah secara berkesadaran\n[MENGAPLIKASI]\nPenyelidikan kelompok: pengumpulan data & diskusi\nPenyusunan solusi/produk pemecahan masalah\nPresentasi & umpan balik antarkelompok\n[MEREFLEKSI]\nRefleksi proses: apa yang berhasil, apa yang menantang\nMenghubungkan solusi dengan kehidupan sehari-hari',
+ 'Project Based Learning (PjBL)':'[MEMAHAMI]\nPertanyaan mendasar & penentuan proyek yang bermakna\n[MENGAPLIKASI]\nPerancangan proyek & pembagian peran kelompok\nPembuatan proyek dengan pendampingan guru\nPresentasi karya & apresiasi antarteman\n[MEREFLEKSI]\nRefleksi proses & karya: apa yang dipelajari\nRencana perbaikan untuk proyek berikutnya',
+ 'Discovery Learning':'[MEMAHAMI]\nStimulasi: pengamatan objek/gejala di sekitar\nIdentifikasi masalah & dugaan sementara (hipotesis)\n[MENGAPLIKASI]\nPengumpulan data untuk menguji hipotesis\nDiskusi & pengujian dalam kelompok\n[MEREFLEKSI]\nPenarikan kesimpulan bersama\nRefleksi: bagaimana cara kami menemukannya tadi',
+ 'Pembelajaran Kooperatif':'[MEMAHAMI]\nPenguatan konsep singkat & kesepakatan belajar\n[MENGAPLIKASI]\nKerja kelompok dengan peran setiap anggota\nPresentasi bergilir antarkelompok\n[MEREFLEKSI]\nApresiasi "2 Bintang 1 Harapan" antarteman\nRefleksi kolaborasi: apa yang membuat kelompok kami berhasil',
+ 'Direct Instruction':'[MEMAHAMI]\nApersepsi & penguatan konsep bertahap\nPemodelan/contoh oleh guru\n[MENGAPLIKASI]\nLatihan terbimbing bersama\nLatihan mandiri dengan dukungan\n[MEREFLEKSI]\nUmpan balik positif & penguatan\nRefleksi: strategi apa yang membuatku paham'};
+function tplInti(m){
+ if(fwOf()==='pm')return PM_INTI[m]||PM_INTI['Problem Based Learning (PBL)'];
+ return KBC_INTI[m]||KBC_INTI['Problem Based Learning (PBL)'];}
+function isiInti(){set('inti',tplInti(val('model')));S.modul.inti=val('inti');save();}
+function isiIntiIfEmpty(){if(!val('inti').trim())isiInti();}
+function pmSplit(t){
+ const sec={M:[],A:[],R:[]};let cur='M';
+ String(t||'').split(/\r?\n/).forEach(l=>{const s=l.trim();
+  if(!s)return;const u=s.toUpperCase();
+  if(u.startsWith('[MEMAHAMI')){cur='M';return;}
+  if(u.startsWith('[MENGAPLIKASI')){cur='A';return;}
+  if(u.startsWith('[MEREFLEKSI')){cur='R';return;}
+  sec[cur].push(s);});
+ return sec;}
+
+/* CONTOH */
+function isiContoh(){
+ if(fwOf()==='pm'){isiContohPM();return;}
+ set('lembaga','Madrasah');buildJenjangOpt(false);set('jenjang','MTs');buildKelasOpt(false);buildMapelOpt(false);
+ set('mapel','Informatika');custCheck();set('kelas','VII');
+ set('semester','1 (Ganjil)');set('jp','2');
+ set('bab','Bab 1 — Berpikir Komputasional: Dekomposisi & Pengenalan Pola');
+ set('model','Problem Based Learning (PBL)');setCks('dim',['Penalaran Kritis','Kolaborasi','Kemandirian']);
+ setCks('cinta',['Cinta ilmu','Cinta diri & sesama']);
+ set('cp','Pada akhir Fase D peserta didik mampu memperagakan konsep ilmu komputer: sistem komputer, jaringan & internet, analisis data, algoritma & pemrograman, dampak sosial informatika. (Verifikasi teks resmi BSKAP 032/H/KR/2024.)');
+ set('tp','Menjelaskan konsep dekomposisi, pengenalan pola, abstraksi, dan algoritma dalam kehidupan sehari-hari\nMenyelesaikan masalah sederhana di madrasah dengan teknik dekomposisi & pengenalan pola');
+ set('ipk','Menjelaskan 4 fondasi berpikir komputasional dengan bahasa sendiri\nMemecah 1 masalah menjadi minimal 4 sub-masalah\nMenemukan minimal 2 pola dari masalah tersebut');
+ set('makna','Masalah besar tidak perlu ditakuti — pecah kecil-kecil, selesaikan satu per satu dengan ikhlas.');
+ set('pemantik','Pernahkah merapikan tas sekolah? Bagaimana cara mengaturnya?\nBagaimana menyiapkan tugas piket kelas agar selesai tepat waktu?');
+ isiInti();
+ set('media','Papan tulis, kartu masalah, LKPD, laptop (jika tersedia — unplugged tetap bisa)');
+ set('asTeknik','Observasi diskusi, penilaian LKPD, tes tertulis');
+ setCks('ases',['Diagnostik','Formatif','Sumatif']);
+ F.forEach(n=>S.modul[n]=val(n));S.modul.lembaga=val('lembaga');S.modul.jenjang=val('jenjang');S.modul.kelas=val('kelas');S.modul.mapel=val('mapel');
+ S.modul._dim=vals('dim');S.modul._cinta=vals('cinta');S.modul._prinsip=vals('prinsip');S.modul._ases=vals('ases');save();}
+function isiContohPM(){
+ set('lembaga','Sekolah Umum');buildJenjangOpt(false);set('jenjang','SD');buildKelasOpt(false);buildMapelOpt(false);
+ set('mapel','Matematika');custCheck();set('kelas','4');
+ set('semester','1 (Ganjil)');set('jp','2');
+ set('bab','Pecahan Senilai');
+ set('model','Problem Based Learning (PBL)');setCks('dim',['Penalaran Kritis','Kolaborasi','Kemandirian']);
+ setCks('prinsip',['Berkesadaran','Bermakna','Menggembirakan']);setCks('cinta',[]);
+ set('cp','(Tempel teks CP resmi Fase B Matematika — Kepka BSKAP No. 032/H/KR/2024. Verifikasi dokumen asli.)');
+ set('tp','Menjelaskan konsep pecahan senilai menggunakan benda konkret/gambar\nMenentukan pasangan pecahan senilai dari satu kesatuan utuh');
+ set('ipk','Menjelaskan arti pecahan senilai dengan bahasa sendiri\nMenemukan minimal 2 pasangan pecahan senilai dengan benda/gambar\nMenggambar model pecahan senilai');
+ set('makna','Nilai sesuatu tidak berubah walaupun bentuknya berbeda — seperti pecahan senilai, dan seperti setiap anak yang berharga di mata gurunya.');
+ set('pemantik','Sepotong kue dibagi dua — kapan dua potong kecil sama besar dengan satu potong besar?\nKapan 1/2 sama dengan 2/4? Buktikan dengan kertas lipat!');
+ set('inti',PM_INTI['Problem Based Learning (PBL)']);
+ set('media','Kertas origami, penggaris, LKPD, papan tulis');
+ set('asTeknik','Observasi diskusi, penilaian LKPD, tes tertulis');
+ setCks('ases',['Diagnostik','Formatif','Sumatif']);
+ F.forEach(n=>S.modul[n]=val(n));S.modul.lembaga=val('lembaga');S.modul.jenjang=val('jenjang');S.modul.kelas=val('kelas');S.modul.mapel=val('mapel');
+ S.modul._dim=vals('dim');S.modul._cinta=vals('cinta');S.modul._prinsip=vals('prinsip');S.modul._ases=vals('ases');save();}
+function resetModul(){if(confirm('Kosongkan form modul?')){S.modul={};save();refreshForm();}}
+
+/* CETAK */
+function kop(judul){const i=S.ident;return '<div class="kop"><div class="k1">'+esc(i.satuan||'NAMA SEKOLAH / MADRASAH')+'</div><div class="k2">'+esc(i.alamat||'')+'</div><div class="k3">TAHUN PELAJARAN '+esc(i.ta||'')+'</div><hr><div class="judul">'+esc(judul||'')+'</div></div>';}
+function doPrint(html,judul){$('printArea').innerHTML=(judul?kop(judul):'')+html;window.print();}
+
+/* ═══ PREVIEW MODUL ═══ */
+function nl2li(t){return lines(t).map(l=>'• '+esc(l)).join('<br>');}
+function nl2ol(t){return '<ol>'+lines(t).map(l=>'<li>'+esc(l)+'</li>').join('')+'</ol>';}
+function pmRows(mn,t){
+ const inti=mn-20,s=pmSplit(t);
+ if(!s.A.length&&!s.R.length){
+  return '<tr><td>Pembukaan (10\u2019)</td><td>'+nl2li(PEMBUKAAN_PM)+'</td></tr>'+
+  '<tr><td>Inti ('+inti+'\u2019)</td><td>'+nl2ol(t)+'</td></tr>'+
+  '<tr><td>Penutup (10\u2019)</td><td>'+nl2li(PENUTUP_PM)+'</td></tr>';}
+ const mm=Math.max(1,Math.round(inti*.4)),ap=Math.max(1,Math.round(inti*.35)),rf=Math.max(1,inti-mm-ap);
+ return '<tr><td>Pembukaan (10\u2019)</td><td>'+nl2li(PEMBUKAAN_PM)+'</td></tr>'+
+ '<tr><td>🧠 Memahami ('+mm+'\u2019)</td><td>'+nl2ol(s.M.join('\n'))+'</td></tr>'+
+ '<tr><td>🛠️ Mengaplikasi ('+ap+'\u2019)</td><td>'+nl2ol(s.A.join('\n'))+'</td></tr>'+
+ '<tr><td>💡 Merefleksi ('+rf+'\u2019)</td><td>'+nl2ol(s.R.join('\n'))+'</td></tr>'+
+ '<tr><td>Penutup (10\u2019)</td><td>'+nl2li(PENUTUP_PM)+'</td></tr>';}
+function buildPreview(){
+ const i=S.ident,m=S.modul,jp=+val('jp')||2,mn=jp*J().menit;
+ const f=fwOf(),Fw=FW[f];
+ const nilaiCinta=(f==='kbc'?(m._cinta||[]):(m._prinsip||[])).join(', ');
+ const rowsKegiatan=(f==='kbc')
+  ?'<tr><td>Pembukaan (10\u2019)</td><td>'+nl2li(PEMBUKAAN_KBC)+'</td></tr>'+
+   '<tr><td>Inti ('+(mn-20)+'\u2019)</td><td>'+nl2ol(m.inti)+'</td></tr>'+
+   '<tr><td>Penutup (10\u2019)</td><td>'+nl2li(PENUTUP_KBC)+'</td></tr>'
+  :pmRows(mn,m.inti);
+ $('previewTitle').value=Fw.judul;
+ $('previewDoc').innerHTML=
+ '<div class="ctr"><h2 style="color:var(--pri)">'+Fw.judul+'</h2><p><b>'+esc(mapelNow())+' • Kelas '+esc(m.kelas)+' • Fase '+esc(faseOf())+' • Semester '+esc(m.semester)+'</b></p></div><hr>'+
+ '<h3>A. INFORMASI UMUM</h3><table>'+
+ '<tr><td style="width:25%">Penyusun</td><td>'+esc(i.penyusun)+(i.nip?' ('+esc(i.nip)+')':'')+'</td></tr>'+
+ '<tr><td>Satuan / Tahun Pelajaran</td><td>'+esc(i.satuan)+' / '+esc(i.ta)+'</td></tr>'+
+ '<tr><td>Kerangka</td><td>'+esc(Fw.badge)+'</td></tr>'+
+ '<tr><td>Alokasi</td><td>'+jp+' JP ('+mn+' menit)</td></tr>'+
+ '<tr><td>Materi</td><td>'+esc(m.bab)+'</td></tr>'+
+ '<tr><td>Dimensi Profil Lulusan</td><td>'+esc((m._dim||[]).join(', '))+'</td></tr>'+
+ '<tr><td>Model</td><td>'+esc(m.model)+'</td></tr>'+
+ '<tr><td>'+esc(Fw.row)+'</td><td>'+esc(nilaiCinta)+'</td></tr>'+
+ '<tr><td>Media</td><td>'+esc(m.media)+'</td></tr></table>'+
+ '<h3>B. KOMPONEN INTI</h3>'+
+ '<p><b>1. CP Fase '+esc(faseOf())+':</b><br>'+esc(m.cp)+'</p><p><b>2. Tujuan Pembelajaran:</b>'+nl2ol(m.tp)+'</p>'+
+ '<p><b>3. Indikator:</b>'+nl2ol(m.ipk)+'</p><p><b>4. Pemahaman Bermakna:</b><br>'+esc(m.makna)+'</p>'+
+ '<p><b>5. Pertanyaan Pemantik:</b>'+nl2ol(m.pemantik)+'</p>'+
+ '<p><b>6. Kegiatan Pembelajaran ('+jp+' JP / '+mn+' menit)</b></p><table><tr><th style="width:20%">Tahap</th><th>Kegiatan</th></tr>'+rowsKegiatan+'</table>'+
+ '<p><b>7. Asesmen:</b> '+esc((m._ases||[]).join(', '))+' — '+esc(m.asTeknik)+'</p>'+
+ '<p><b>8. Remedial:</b> '+nl2li(REMED)+'<br><b>Pengayaan:</b> '+nl2li(PENG)+'</p>'+
+ '<p><b>9. Refleksi Guru:</b> '+nl2li(REFL)+'</p>'+
+ '<h3>'+esc(Fw.aff)+'</h3><i>'+AFF.slice(0,4).join(' — ')+'</i>'+
+ '<table style="margin-top:36px"><tr><th style="width:45%">Mengetahui,<br>Kepala '+esc(i.satuan||'Sekolah/Madrasah')+'</th><th>'+esc(i.satuan||'')+', ....................<br>Guru Mata Pelajaran</th></tr>'+
+ '<tr><td style="height:80px;vertical-align:bottom">( '+esc(i.kepsek||'..........................')+' )<br>NIP. '+esc(i.nipKepsek||'..................')+'</td><td style="vertical-align:bottom">( '+esc(i.penyusun||'..........................')+' )<br>NIP/NUPTK. '+esc(i.nip||'..................')+'</td></tr></table>';
+ save();go('preview');}
+function simpanModul(){
+ const j=mapelNow()+' '+val('kelas')+' — '+(val('bab')||'Tanpa Judul');
+ S.saved.push({id:Date.now(),judul:j,data:JSON.parse(JSON.stringify(S.modul))});
+ save();renderSaved();updateStats();alert('✅ Tersimpan: '+j);}
+
+/* KTP ATP */
+function genKTPATP(){
+ const tp=lines(val('tp'));
+ if(!tp.length){alert('Isi dulu TP di menu Modul Ajar ya 😊');return;}
+ $('ktpOut').innerHTML='<h3 style="color:var(--pri);margin-top:10px">📑 KTP — '+esc(mapelNow())+' • Kelas '+esc(val('kelas'))+' • Fase '+esc(faseOf())+'</h3><table><tr><th style="width:6%">No</th><th>Tujuan Pembelajaran</th><th style="width:22%">Elemen</th></tr>'+tp.map((t,x)=>'<tr><td>'+(x+1)+'</td><td>'+esc(t)+'</td><td></td></tr>').join('')+'</table>';
+ $('atpOut').innerHTML='<h3 style="color:var(--pri);margin-top:16px">🗓 ATP — JP bisa diubah langsung</h3><table><tr><th style="width:6%">No</th><th>Tujuan Pembelajaran</th><th style="width:10%">JP</th><th style="width:15%">Bulan</th></tr>'+tp.map((t,x)=>'<tr><td>'+(x+1)+'</td><td>'+esc(t)+'</td><td><input type="number" value="4" min="1" class="atpJP" onchange="hitungATP()"></td><td></td></tr>').join('')+'<tr><th colspan="2">TOTAL</th><th id="totJP">0</th><th></th></tr></table>';
+ hitungATP();}
+function hitungATP(){let t=0;document.querySelectorAll('.atpJP').forEach(x=>t+=(+x.value||0));$('totJP').textContent=t;}
+
+/* KKTP */
+function genKKTP(){
+ const tp=lines(val('tp'));
+ if(!tp.length){alert('Isi dulu TP di menu Modul Ajar ya 😊');return;}
+ $('kktpOut').innerHTML=tp.map((t,x)=>{
+  const r=t.replace(/^\S+\s*/,'');
+  const L=[['Baru Berkembang','Mulai mengenal: '+r+' (masih perlu bimbingan penuh guru)'],
+  ['Layak','Mampu '+r+' dengan contoh dari guru'],
+  ['Cakap','Mampu '+r+' secara mandiri dan memberi contoh sendiri'],
+  ['Mahir','Mampu '+r+' serta menerapkannya pada situasi/masalah baru']];
+  return '<h3 style="color:var(--pri);margin-top:12px">TP '+(x+1)+': '+esc(t)+'</h3><table><tr><th style="width:22%">Level</th><th>Deskriptor</th></tr>'+L.map(r2=>'<tr><td><b>'+r2[0]+'</b></td><td>'+esc(r2[1])+'</td></tr>').join('')+'</table>';}).join('');}
+
+/* PROTA PROMES */
+const B1=['Juli','Agustus','September','Oktober','November','Desember'];
+const B2=['Januari','Februari','Maret','April','Mei','Juni'];
+const hitJPP=a=>a.reduce((x,b)=>x+(+b.jp||0),0);
+function autoProta(){
+ const tps=lines(val('tp'));if(!tps.length){alert('Isi dulu TP di Modul Ajar.');return;}
+ const r=$('rentangProta').value;
+ const bl=r==='1'?B1:r==='2'?B2:B1.concat(B2);
+ S.prota=tps.map((t,x)=>({bulan:bl[Math.min(Math.floor(x*bl.length/tps.length),bl.length-1)],materi:t,jp:4}));
+ save();renderProta();}
+function addProta(){S.prota.push({bulan:'',materi:'',jp:2});save();renderProta();}
+function updProta(i,k,v){S.prota[i][k]=k==='jp'?(+v||0):v;save();$('sumJP').textContent=hitJPP(S.prota);}
+function delProta(i){S.prota.splice(i,1);save();renderProta();}
+function renderProta(){$('protaBody').innerHTML=S.prota.map((r,i)=>'<tr><td>'+(i+1)+'</td><td><input value="'+esc(r.bulan)+'" onchange="updProta('+i+',\'bulan\',this.value)"></td><td><input value="'+esc(r.materi)+'" onchange="updProta('+i+',\'materi\',this.value)"></td><td><input type="number" value="'+r.jp+'" onchange="updProta('+i+',\'jp\',this.value)"></td><td><button class="btn b-red" style="padding:3px 9px" onclick="delProta('+i+')">✕</button></td></tr>').join('')||'<tr><td colspan="5"><i>Klik "Prota dari TP".</i></td></tr>';$('sumJP').textContent=hitJPP(S.prota);}
+function protaHTML(){return '<p><b>Mapel:</b> '+esc(mapelNow())+' • <b>Kelas:</b> '+esc(val('kelas'))+' • <b>Fase '+esc(faseOf())+'</b></p><table><tr><th>No</th><th>Bulan</th><th>Materi / TP</th><th>JP</th></tr>'+S.prota.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(r.bulan)+'</td><td>'+esc(r.materi)+'</td><td>'+r.jp+'</td></tr>').join('')+'<tr><th colspan="3">TOTAL</th><th>'+hitJPP(S.prota)+'</th></tr></table>';}
+function autoPromes(){if(!S.prota.length){alert('Isi dulu Prota.');return;}S.promes=S.prota.map(r=>({bulan:r.bulan,minggu:'1–2',materi:r.materi,jp:r.jp}));save();renderPromes();}
+function addPromes(){S.promes.push({bulan:'',minggu:'',materi:'',jp:2});save();renderPromes();}
+function updPromes(i,k,v){S.promes[i][k]=k==='jp'?(+v||0):v;save();$('sumJP2').textContent=hitJPP(S.promes);}
+function delPromes(i){S.promes.splice(i,1);save();renderPromes();}
+function renderPromes(){$('promesBody').innerHTML=S.promes.map((r,i)=>'<tr><td>'+(i+1)+'</td><td><input value="'+esc(r.bulan)+'" onchange="updPromes('+i+',\'bulan\',this.value)"></td><td><input value="'+esc(r.minggu)+'" onchange="updPromes('+i+',\'minggu\',this.value)"></td><td><input value="'+esc(r.materi)+'" onchange="updPromes('+i+',\'materi\',this.value)"></td><td><input type="number" value="'+r.jp+'" onchange="updPromes('+i+',\'jp\',this.value)"></td><td><button class="btn b-red" style="padding:3px 9px" onclick="delPromes('+i+')">✕</button></td></tr>').join('')||'<tr><td colspan="6"><i>Klik "Promes dari Prota".</i></td></tr>';$('sumJP2').textContent=hitJPP(S.promes);}
+function promesHTML(){return '<p><b>Mapel:</b> '+esc(mapelNow())+' • <b>Kelas:</b> '+esc(val('kelas'))+' • <b>Semester:</b> '+esc(val('semester'))+'</p><table><tr><th>No</th><th>Bulan</th><th>Minggu</th><th>Materi / TP</th><th>JP</th></tr>'+S.promes.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(r.bulan)+'</td><td>'+esc(r.minggu)+'</td><td>'+esc(r.materi)+'</td><td>'+r.jp+'</td></tr>').join('')+'<tr><th colspan="4">TOTAL</th><th>'+hitJPP(S.promes)+'</th></tr></table>';}
+
+/* BANK SOAL */
+function addSoal(){
+ if(!val('bsSoal').trim()){alert('Tulis dulu pertanyaannya ya 😊');return;}
+ S.bank.push({tp:val('bsTp'),ind:val('bsInd'),level:val('bsLevel'),bentuk:val('bsBentuk'),soal:val('bsSoal').trim(),opsi:[val('bsA'),val('bsB'),val('bsC'),val('bsD')],kunci:val('bsKunci').trim(),skor:+val('bsSkor')||1});
+ save();renderBank();clearSoalForm();updateStats();}
+function renderBank(){
+ $('bankCount').textContent=S.bank.length;
+ $('bankBody').innerHTML=S.bank.map((s,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(s.bentuk)+'</td><td>'+esc(s.level)+'</td><td>'+esc(s.soal)+'</td><td>'+esc(s.kunci)+'</td><td>'+s.skor+'</td><td><button class="btn b-red" style="padding:3px 9px" onclick="delSoal('+i+')">✕</button></td></tr>').join('')||'<tr><td colspan="7"><i>Bank masih kosong.</i></td></tr>';}
+function delSoal(i){S.bank.splice(i,1);save();renderBank();updateStats();}
+function clearSoalForm(){['bsSoal','bsA','bsB','bsC','bsD','bsKunci','bsInd'].forEach(n=>$(n).value='');}
+function kisiHTML(){
+ if(!S.bank.length)return '<i>Bank soal kosong.</i>';
+ const tot=S.bank.reduce((a,b)=>a+(+b.skor||0),0);
+ return '<p><b>Mapel:</b> '+esc(mapelNow())+' • <b>Kelas:</b> '+esc(val('kelas'))+' • <b>Jumlah Soal:</b> '+S.bank.length+'</p><table><tr><th>No</th><th>TP / Materi</th><th>Indikator Soal</th><th>Level</th><th>Bentuk</th><th>No. Soal</th><th>Skor</th></tr>'+S.bank.map((s,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(s.tp||'-')+'</td><td>'+esc(s.ind||'-')+'</td><td>'+esc(s.level)+'</td><td>'+esc(s.bentuk)+'</td><td>'+(i+1)+'</td><td>'+s.skor+'</td></tr>').join('')+'<tr><th colspan="6">TOTAL</th><th>'+tot+'</th></tr></table>';}
+function soalHTML(){
+ if(!S.bank.length)return '<i>Bank soal kosong.</i>';
+ let h='<p>Nama: ..............................  Kelas: ............  No. Absen: ......</p>';
+ const gr=b=>S.bank.filter(s=>s.bentuk===b);
+ const pg=gr('Pilihan Ganda'),is=gr('Isian'),ur=gr('Uraian');
+ if(pg.length){h+='<h3 style="margin:10px 0 4px">A. Pilihan Ganda — berilah tanda pada jawaban paling tepat!</h3>';pg.forEach((s,i)=>{h+='<p>'+(i+1)+'. '+esc(s.soal)+'</p><ol type="A">'+s.opsi.filter(Boolean).map(o=>'<li>'+esc(o)+'</li>').join('')+'</ol>';});}
+ if(is.length){h+='<h3 style="margin:10px 0 4px">B. Isian — isilah dengan jawaban tepat!</h3>';is.forEach((s,i)=>{h+='<p>'+(i+1)+'. '+esc(s.soal)+' : ....................................</p>';});}
+ if(ur.length){h+='<h3 style="margin:10px 0 4px">C. Uraian — jawablah dengan lengkap!</h3>';ur.forEach((s,i)=>{h+='<p>'+(i+1)+'. '+esc(s.soal)+'</p><div class="garis"></div><div class="garis"></div><div class="garis"></div>';});}
+ return h;}
+function kunciHTML(){
+ if(!S.bank.length)return '<i>Bank soal kosong.</i>';
+ const gr=b=>S.bank.filter(s=>s.bentuk===b);
+ const pg=gr('Pilihan Ganda'),is=gr('Isian'),ur=gr('Uraian');
+ let h='';
+ if(pg.length)h+='<p><b>A. PG:</b> '+pg.map((s,i)=>(i+1)+'.'+esc(s.kunci||'-')).join(' &nbsp; ')+'</p>';
+ if(is.length)h+='<p><b>B. Isian:</b></p><ol>'+is.map(s=>'<li>'+esc(s.kunci||'-')+'</li>').join('')+'</ol>';
+ if(ur.length)h+='<p><b>C. Uraian:</b></p><ol>'+ur.map(s=>'<li>'+esc(s.kunci||'-')+'</li>').join('')+'</ol>';
+ return h;}
+
+/* KUIS */
+let Q={list:[],i:0,score:0};
+const PRAISE=['MasyaAllah, tepat sekali! 🌟','Hebat! Kamu paham! 💚','Benar! Terus semangat ya! ✨','Luar biasa! Jawabanmu tepat! 🎉'];
+const SUPPORT=['Belum tepat, tapi tidak apa-apa — dari sinilah kita belajar.','Hampir! Sedikit lagi kamu pasti bisa.','Santai, ini bagian dari proses belajar.'];
+function bukaKuis(){go('kuis');mulaiKuis();}
+function mulaiKuis(){
+ Q.list=S.bank.filter(s=>s.bentuk==='Pilihan Ganda'&&s.opsi.filter(Boolean).length>=2);
+ if(!Q.list.length){alert('Belum ada soal PG di Bank Soal. Tambahkan dulu ya 😊');return;}
+ if($('qAcak').checked)Q.list=Q.list.slice().sort(()=>Math.random()-.5);
+ Q.i=0;Q.score=0;tampilSoal();}
+function idxBenar(s){const k=String(s.kunci||'').trim().toUpperCase();
+ if(k.length===1&&'ABCD'.includes(k))return 'ABCD'.indexOf(k);
+ return s.opsi.findIndex(o=>String(o).trim().toUpperCase()===k);}
+function tampilSoal(){
+ const s=Q.list[Q.i],cur=s.opsi.filter(Boolean);
+ $('quizBox').innerHTML='<div class="qprog">Soal '+(Q.i+1)+' dari '+Q.list.length+' • Skor: '+Q.score+'</div><div style="font-size:15.5px;font-weight:600;margin-bottom:8px">'+(Q.i+1)+'. '+esc(s.soal)+'</div>'+cur.map((o,x)=>'<button class="qop" onclick="jawab('+x+')">'+('ABCD'[x])+'. '+esc(o)+'</button>').join('')+'<div id="qmsg"></div><button class="btn b-green" id="qNext" style="display:none;margin-top:8px" onclick="'+(Q.i<Q.list.length-1?'lanjutKuis()':'selesaiKuis()')+'">'+(Q.i<Q.list.length-1?'Lanjut ➜':'Lihat Hasil 🌟')+'</button>';}
+function jawab(x){
+ const s=Q.list[Q.i],cur=s.opsi.filter(Boolean),b=idxBenar(s);
+ const btns=document.querySelectorAll('.qop');btns.forEach(el=>el.disabled=true);
+ if(b>=0)btns[b].classList.add('ok');
+ if(x===b){Q.score+=+s.skor||1;$('qmsg').innerHTML='<span class="qgood">'+rnd(PRAISE)+'</span>';}
+ else{btns[x].classList.add('no');$('qmsg').innerHTML='<span class="qsoft">'+rnd(SUPPORT)+' Jawaban benarnya: <b>'+esc(cur[b]||s.kunci)+'</b>. Kamu pasti bisa selanjutnya! 🌱</span>';}
+ $('qNext').style.display='inline-block';}
+function lanjutKuis(){Q.i++;tampilSoal();}
+function selesaiKuis(){
+ const max=Q.list.reduce((a,s)=>a+(+s.skor||1),0),r=Q.score/max;let m;
+ if(r>=.9)m='Luar biasa! Kamu menguasai materi dengan sangat baik. Pertahankan semangatmu! 🌟';
+ else if(r>=.7)m='Hebat! Hasilmu sudah bagus. Sedikit lagi menuju sempurna — terus berlatih ya! 💚';
+ else if(r>=.5)m='Terima kasih sudah berusaha! Setiap jawaban salah adalah pintu menuju paham. Pelajari lagi pelan-pelan, kamu pasti bisa! 🌱';
+ else m='Tidak apa-apa sama sekali. Nilai tidak menentukanmu — tekadmu yang menentukan. Ayo belajar lagi bersama guru, langkah demi langkah! 🤗';
+ $('quizBox').innerHTML='<div style="text-align:center;padding:16px"><h2 style="color:var(--pri)">Hasil Kuis 🌿</h2><p style="font-size:32px"><b>'+Q.score+'</b> / '+max+'</p><p>'+m+'</p><button class="btn b-green" onclick="mulaiKuis()">🔄 Coba Lagi</button> <button class="btn b-blue" onclick="go(\'banksoal\')">📚 Kembali ke Bank Soal</button></div>';}
+
+/* LKPD */
+function buildLKPD(){
+ let cols=lines(val('lkKol').replace(/,/g,'\n'));
+ if(!cols.length)cols=['Hasil Pengamatan','Keterangan'];
+ const br=Math.max(1,+val('lkBaris')||4);
+ const tbl='<table><tr>'+cols.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+Array(br).fill('<tr>'+cols.map(()=>'<td style="height:32px"></td>').join('')+'</tr>').join('')+'</table>';
+ $('lkpdOut').innerHTML='<h3 style="color:var(--pri)">'+esc(val('lkJudul')||'LEMBAR KERJA PESERTA DIDIK (LKPD)')+'</h3>'+
+ '<table><tr><td>Nama Kelompok</td><td style="width:40%">: ............................</td></tr><tr><td>Kelas / Mapel</td><td>: '+esc(val('lkKelas'))+' / '+esc(val('lkMapel'))+'</td></tr><tr><td>Alokasi</td><td>: '+esc(val('lkAlokasi'))+'</td></tr></table>'+
+ '<p><b>🎯 Tujuan Kegiatan:</b>'+nl2ol(val('lkTujuan'))+'</p>'+
+ '<p><b>🧰 Alat & Bahan:</b> '+esc(val('lkAlat'))+'</p>'+
+ '<p><b>📌 Langkah Kerja:</b>'+nl2ol(val('lkLangkah'))+'</p>'+
+ '<p><b>📊 Tabel Hasil Pengamatan:</b></p>'+tbl+
+ '<p><b>❓ Pertanyaan Diskusi:</b></p>'+lines(val('lkTanya')).map((t,i)=>'<p>'+(i+1)+'. '+esc(t)+'</p><div class="garis"></div>').join('')+
+ '<p><b>✍️ Kesimpulan kelompok kami:</b></p><div class="garis"></div><div class="garis"></div>'+
+ '<div class="hint">💚 Selamat berjuang! Tidak apa-apa jika jawabanmu belum sempurna — yang penting kalian belajar bersama dengan ikhlas dan gembira.</div>';}
+
+/* NILAI */
+function analisisNilai(){
+ const kkm=+val('kkm')||75;
+ const rows=lines(val('nilaiIn')).map(l=>{const p=l.split(/[;,\t]/);return{nama:(p[0]||'').trim(),nilai:+(p[1]||0)};}).filter(r=>r.nama);
+ if(!rows.length){alert('Masukkan data: Nama;Nilai (1 baris = 1 siswa)');return;}
+ const tuntas=rows.filter(r=>r.nilai>=kkm),belum=rows.filter(r=>r.nilai<kkm);
+ const avg=(rows.reduce((a,b)=>a+b.nilai,0)/rows.length).toFixed(1);
+ const pct=(tuntas.length/rows.length*100).toFixed(1);
+ let h='<table><tr><th style="width:6%">No</th><th>Nama</th><th style="width:12%">Nilai</th><th style="width:36%">Status</th></tr>'+rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(r.nama)+'</td><td>'+r.nilai+'</td><td>'+(r.nilai>=kkm?'🌟 Tuntas':'🌱 Perlu pendampingan (kesempatan tumbuh)')+'</td></tr>').join('')+'</table>';
+ h+='<p style="margin-top:8px"><b>Rekap:</b> '+rows.length+' siswa • Rata-rata '+avg+' • Tuntas '+tuntas.length+' ('+pct+'%) • Perlu pendampingan '+belum.length+'</p>';
+ if(belum.length)h+='<p><b>Daftar pendampingan (remedial penuh kasih sayang):</b><ol>'+belum.map(r=>'<li>'+esc(r.nama)+' ('+r.nilai+')</li>').join('')+'</ol></p>';
+ h+='<p>🌿 <b>Catatan:</b> Siswa yang belum tuntas BUKAN gagal — mereka mendapat <b>kesempatan tumbuh</b> lewat remedial yang didampingi dengan sabar.</p>';
+ $('nilaiOut').innerHTML=h;}
+
+/* APRESIASI */
+function buatKartu(){
+ if(!val('kaNama').trim()){alert('Isi nama siswa dulu ya 😊');return;}
+ $('kartuOut').innerHTML='<div class="kartu"><div class="kAtas">🌿 KARTU APRESIASI 🌿</div><div class="kIsi">Kepada saudariku yang luar biasa,</div><div class="kNama">'+esc(val('kaNama'))+'</div><div class="kIsi">'+esc(val('kaAlasan')||'Atas usaha dan kebaikanmu hari ini.')+'</div><div class="kQuote">\u201C'+rnd(AFF)+'\u201D</div><div class="kDari">Dengan cinta, '+esc(val('kaDari')||S.ident.penyusun||'Guru')+' 💚</div></div>';}
+function b2hHTML(){return '<h3>⭐ 2 Bintang 1 Harapan</h3><p>Nama penilai: ........................  Untuk teman: ........................</p><p><b>⭐ Bintang 1 — yang kamu sukai dari karyanya:</b></p><div class="garis"></div><p><b>⭐ Bintang 2 — yang kamu apresiasi:</b></p><div class="garis"></div><p><b>🌱 Harapan — saran yang baik dan lembut:</b></p><div class="garis"></div><p><i>💚 Sampaikan harapan dengan kata-kata yang menyenangkan hati ya.</i></p>';}
+
+/* REFLEKSI */
+function refSiswaHTML(){return '<h3>🌱 Lembar Refleksi Siswa</h3><p>Nama: ..................  Kelas: ..........  Tanggal: ..........</p><p><b>1. Bagaimana perasaanmu belajar hari ini? (lingkari)</b></p><p style="font-size:26px;letter-spacing:14px">😄 😊 🙂 😐 😟 😢</p><p><b>2. Tiga hal yang kamu syukuri hari ini:</b></p><div class="garis"></div><div class="garis"></div><div class="garis"></div><p><b>3. Bagian pelajaran yang paling kamu senangi:</b></p><div class="garis"></div><p><b>4. Hal yang ingin kamu coba lebih baik besok:</b></p><div class="garis"></div><p><b>5. Pesan/cerita untuk Bapak/Ibu Guru:</b></p><div class="garis"></div><div class="garis"></div><p><i>💚 Terima kasih sudah jujur dan berusaha. Kamu hebat!</i></p>';}
+function refGuruHTML(){return '<h3>🌱 Refleksi Guru</h3><p>Hari/Tanggal: ..................  Kelas: ..........</p><table><tr><th style="width:55%">Pertanyaan Refleksi</th><th>Catatan</th></tr><tr><td>Apakah semua peserta didik terlibat aktif dan merasa aman?</td><td style="height:40px"></td></tr><tr><td>Siapa yang memerlukan perhatian/cinta lebih hari ini?</td><td style="height:40px"></td></tr><tr><td>Kegiatan mana yang paling menghidupkan kelas?</td><td style="height:40px"></td></tr><tr><td>Apa yang akan saya perbaiki pada pertemuan berikutnya?</td><td style="height:40px"></td></tr><tr><td>Hal apa yang saya syukuri hari ini?</td><td style="height:40px"></td></tr></table><p><i>💚 Guru yang bahagia menciptakan kelas yang bahagia.</i></p>';}
+function cekHTML(){return '<h3>🌱 Cek Perasaan Harian</h3><p>Nama: ..................  Kelas: ..........  Tanggal: ..........</p><p style="font-size:28px;letter-spacing:14px">😄 😊 🙂 😐 😟 😢</p><p><b>Apa yang membuatmu berperasaan seperti itu?</b></p><div class="garis"></div><div class="garis"></div><p><b>Apa satu hal kecil yang ingin kamu ceritakan ke guru?</b></p><div class="garis"></div><p><i>💚 Perasaanmu penting. Terima kasih sudah berbagi.</i></p>';}
+
+/* JURNAL */
+function addJurnal(){
+ if(!val('jm').trim()){alert('Isi materi dulu ya 😊');return;}
+ S.jurnal.push({tgl:val('jt'),kelas:val('jk'),materi:val('jm'),kegiatan:val('jkeg'),kendala:val('jken'),perhatian:val('jper'),tindak:val('jtin')});
+ save();renderJurnal();updateStats();['jt','jk','jm','jkeg','jken','jper','jtin'].forEach(n=>$(n).value='');}
+function renderJurnal(){$('jurBody').innerHTML=S.jurnal.map((j,i)=>'<tr><td>'+esc(j.tgl)+'</td><td>'+esc(j.kelas)+'</td><td>'+esc(j.materi)+'</td><td>'+esc(j.kegiatan)+'</td><td>'+esc(j.kendala)+'</td><td>'+esc(j.perhatian)+'</td><td>'+esc(j.tindak)+'</td><td><button class="btn b-red" style="padding:3px 9px" onclick="delJurnal('+i+')">✕</button></td></tr>').join('')||'<tr><td colspan="8"><i>Belum ada entri.</i></td></tr>';}
+function delJurnal(i){S.jurnal.splice(i,1);save();renderJurnal();updateStats();}
+function jurnalHTML(){return '<table><tr><th>Tgl</th><th>Kelas</th><th>Materi</th><th>Kegiatan</th><th>Kendala</th><th>Perlu Perhatian</th><th>Tindak Lanjut</th></tr>'+S.jurnal.map(j=>'<tr><td>'+esc(j.tgl)+'</td><td>'+esc(j.kelas)+'</td><td>'+esc(j.materi)+'</td><td>'+esc(j.kegiatan)+'</td><td>'+esc(j.kendala)+'</td><td>'+esc(j.perhatian)+'</td><td>'+esc(j.tindak)+'</td></tr>').join('')+'</table>';}
+
+/* DATA */
+function renderSaved(){$('savedList').innerHTML=S.saved.length?S.saved.map(s=>'<div class="saved-item"><span>📘 '+esc(s.judul)+'</span><span><button class="btn b-green" onclick="muat('+s.id+')">Buka</button> <button class="btn b-red" onclick="hapus('+s.id+')">Hapus</button></span></div>').join(''):'<i>Belum ada modul tersimpan.</i>';}
+function muat(id){const s=S.saved.find(x=>x.id===id);if(!s)return;S.modul=JSON.parse(JSON.stringify(s.data));save();refreshForm();buildPreview();}
+function hapus(id){if(confirm('Hapus modul ini?')){S.saved=S.saved.filter(x=>x.id!==id);save();renderSaved();updateStats();}}
+function exportJSON(){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='perangkat-ajar-pro-backup.json';a.click();}
+function importJSON(inp){
+ const f=inp.files[0];if(!f)return;const r=new FileReader();
+ r.onload=e=>{try{const d=JSON.parse(e.target.result);
+  if(d.saved)S.saved=S.saved.concat(d.saved);
+  if(d.bank)S.bank=S.bank.concat(d.bank);
+  if(d.jurnal)S.jurnal=S.jurnal.concat(d.jurnal);
+  if(d.modul)S.modul=d.modul;if(d.ident)S.ident=d.ident;
+  if(d.prota)S.prota=d.prota;if(d.promes)S.promes=d.promes;
+  save();refreshForm();renderSaved();renderBank();renderJurnal();updateStats();alert('✅ Data berhasil diimport!');}catch(x){alert('❌ File tidak valid');}};
+ r.readAsText(f);inp.value='';}
+function resetSemua(){if(confirm('Hapus SEMUA data di browser ini?')){localStorage.removeItem(LSK);location.reload();}}
+
+/* INIT */
+setTheme(S.theme||'light');
+bindAll();refreshForm();
+renderSaved();renderBank();renderJurnal();renderProta();renderPromes();
+tampilAfirm();updateStats();
+</script>
+</body>
+</html>
